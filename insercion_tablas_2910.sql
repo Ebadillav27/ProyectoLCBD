@@ -933,7 +933,7 @@ INSERT INTO Proveedores (ID_Proveedor, Nombre_Empresa, Telefono) VALUES (25,'Ips
 INSERT INTO Proveedores (ID_Proveedor, Nombre_Empresa, Telefono) VALUES (26,'Nec Tempus Scelerisque Corp.','22764974');
 INSERT INTO Proveedores (ID_Proveedor, Nombre_Empresa, Telefono) VALUES (27,'Mattis Semper Industries','22911285');
 INSERT INTO Proveedores (ID_Proveedor, Nombre_Empresa, Telefono) VALUES (28,'Elit Curabitur Associates','22173776');
-INSERT INTO Proveedores (ID_Proveedor, Nombre_Empresa, Telefono) VALUES (29,'Sed Diam LLP','2238 6528');
+INSERT INTO Proveedores (ID_Proveedor, Nombre_Empresa, Telefono) VALUES (29,'Sed Diam LLP','22386528');
 INSERT INTO Proveedores (ID_Proveedor, Nombre_Empresa, Telefono) VALUES (30,'Rutrum Urna Nec Associates','22043464');
 INSERT INTO Proveedores (ID_Proveedor, Nombre_Empresa, Telefono) VALUES (31,'Lobortis Quam Limited','22677531');
 INSERT INTO Proveedores (ID_Proveedor, Nombre_Empresa, Telefono) VALUES (32,'Ornare Lectus Ante Limited','22044621');
@@ -997,7 +997,7 @@ INSERT INTO Proveedores (ID_Proveedor, Nombre_Empresa, Telefono) VALUES (89,'Jus
 INSERT INTO Proveedores (ID_Proveedor, Nombre_Empresa, Telefono) VALUES (90,'Phasellus At Augue Inc.','22421884');
 INSERT INTO Proveedores (ID_Proveedor, Nombre_Empresa, Telefono) VALUES (91,'Vulputate Risus Corp.','22997340');
 INSERT INTO Proveedores (ID_Proveedor, Nombre_Empresa, Telefono) VALUES (92,'Vestibulum Ante Ipsum Institute','22621683');
-INSERT INTO Proveedores (ID_Proveedor, Nombre_Empresa, Telefono) VALUES (93,'Ligula Company','2204 3456');
+INSERT INTO Proveedores (ID_Proveedor, Nombre_Empresa, Telefono) VALUES (93,'Ligula Company','22043456');
 INSERT INTO Proveedores (ID_Proveedor, Nombre_Empresa, Telefono) VALUES (94,'Tempus Lorem Fringilla Corporation','22186103');
 INSERT INTO Proveedores (ID_Proveedor, Nombre_Empresa, Telefono) VALUES (95,'Pede Corp.','22789881');
 INSERT INTO Proveedores (ID_Proveedor, Nombre_Empresa, Telefono) VALUES (96,'Enim Corporation','22935251');
@@ -1010,12 +1010,13 @@ INSERT INTO Proveedores (ID_Proveedor, Nombre_Empresa, Telefono) VALUES (102,'Im
 INSERT INTO Proveedores (ID_Proveedor, Nombre_Empresa, Telefono) VALUES (103,'Arcu Vel Quam Foundation','22486207');
 INSERT INTO Proveedores (ID_Proveedor, Nombre_Empresa, Telefono) VALUES (104,'Lorem Ipsum Industries','22714598');
 INSERT INTO Proveedores (ID_Proveedor, Nombre_Empresa, Telefono) VALUES (105,'Pellentesque Habitant Morbi LLC','22549391');
-INSERT INTO Proveedores (ID_Proveedor, Nombre_Empresa, Telefono) VALUES (106,'Sagittis Limited','2258 7654'),(107,'Elit Ltd','22092621');
+INSERT INTO Proveedores (ID_Proveedor, Nombre_Empresa, Telefono) VALUES (106,'Sagittis Limited','22587654'); 
+INSERT INTO Proveedores (ID_Proveedor, Nombre_Empresa, Telefono) VALUES (107,'Elit Ltd','22092621');
 INSERT INTO Proveedores (ID_Proveedor, Nombre_Empresa, Telefono) VALUES (108,'Imperdiet Ullamcorper Limited','22944270');
 INSERT INTO Proveedores (ID_Proveedor, Nombre_Empresa, Telefono) VALUES (109,'Dolor Inc.','22701468');
 INSERT INTO Proveedores (ID_Proveedor, Nombre_Empresa, Telefono) VALUES (110,'Enim Suspendisse Institute','22233908');
 INSERT INTO Proveedores (ID_Proveedor, Nombre_Empresa, Telefono) VALUES (111,'Tortor Integer Aliquam LLC','22605613');
-INSERT INTO Proveedores (ID_Proveedor, Nombre_Empresa, Telefono) VALUES (112,'Donec Limited','2298 0179');
+INSERT INTO Proveedores (ID_Proveedor, Nombre_Empresa, Telefono) VALUES (112,'Donec Limited','22980179');
 INSERT INTO Proveedores (ID_Proveedor, Nombre_Empresa, Telefono) VALUES (113,'Erat Eget Tincidunt Company','22399516');
 INSERT INTO Proveedores (ID_Proveedor, Nombre_Empresa, Telefono) VALUES (114,'Dictum Company','22377531');
 INSERT INTO Proveedores (ID_Proveedor, Nombre_Empresa, Telefono) VALUES (115,'Cursus Ltd','22370936');
@@ -1108,10 +1109,10 @@ INSERT INTO Proveedores (ID_Proveedor, Nombre_Empresa, Telefono) VALUES (201,'Co
 INSERT INTO Proveedores (ID_Proveedor, Nombre_Empresa, Telefono) VALUES (202,'Ante Maecenas Mi Corp.','67595098');
 INSERT INTO Proveedores (ID_Proveedor, Nombre_Empresa, Telefono) VALUES (203,'Vestibulum Ante Institute','57148520');
 INSERT INTO Proveedores (ID_Proveedor, Nombre_Empresa, Telefono) VALUES (204,'Aliquam Rutrum Lorem Industries','17872177');
-INSERT INTO Proveedores (ID_Proveedor, Nombre_Empresa, Telefono) VALUES (205,'Ac Nulla Ltd','12869118'),
+INSERT INTO Proveedores (ID_Proveedor, Nombre_Empresa, Telefono) VALUES (205,'Ac Nulla Ltd','12869118');
 INSERT INTO Proveedores (ID_Proveedor, Nombre_Empresa, Telefono) VALUES (206,'Duis At Lacus Corporation','62822911');
-INSERT INTO Proveedores (ID_Proveedor, Nombre_Empresa, Telefono) VALUES (207,'Mi Pede Nonummy PC','45722198'),
-INSERT INTO Proveedores (ID_Proveedor, Nombre_Empresa, Telefono) VALUES (208,'Nullam Associates','1792 7011');
+INSERT INTO Proveedores (ID_Proveedor, Nombre_Empresa, Telefono) VALUES (207,'Mi Pede Nonummy PC','45722198');
+INSERT INTO Proveedores (ID_Proveedor, Nombre_Empresa, Telefono) VALUES (208,'Nullam Associates','17927011');
 INSERT INTO Proveedores (ID_Proveedor, Nombre_Empresa, Telefono) VALUES (209,'Imperdiet Non Vestibulum Foundation','14216968');
 INSERT INTO Proveedores (ID_Proveedor, Nombre_Empresa, Telefono) VALUES (210,'Erat Vel Associates','52886354');
 INSERT INTO Proveedores (ID_Proveedor, Nombre_Empresa, Telefono) VALUES (211,'Ipsum Dolor Sit Limited','95456625');
@@ -1139,7 +1140,7 @@ INSERT INTO Proveedores (ID_Proveedor, Nombre_Empresa, Telefono) VALUES (232,'Ne
 INSERT INTO Proveedores (ID_Proveedor, Nombre_Empresa, Telefono) VALUES (233,'Sagittis Augue Corporation','14224266');
 INSERT INTO Proveedores (ID_Proveedor, Nombre_Empresa, Telefono) VALUES (234,'Ipsum Dolor Sit Corp.','40801845');
 INSERT INTO Proveedores (ID_Proveedor, Nombre_Empresa, Telefono) VALUES (235,'Molestie Consulting','26285314');
-INSERT INTO Proveedores (ID_Proveedor, Nombre_Empresa, Telefono) VALUES (236,'Eu LLP','1950 1205');
+INSERT INTO Proveedores (ID_Proveedor, Nombre_Empresa, Telefono) VALUES (236,'Eu LLP','19501205');
 INSERT INTO Proveedores (ID_Proveedor, Nombre_Empresa, Telefono) VALUES (237,'Duis Sit Amet PC','00683813');
 INSERT INTO Proveedores (ID_Proveedor, Nombre_Empresa, Telefono) VALUES (238,'Ante Lectus LLP','72830492');
 INSERT INTO Proveedores (ID_Proveedor, Nombre_Empresa, Telefono) VALUES (239,'Nunc Nulla Vulputate Ltd','40775237');
@@ -1155,7 +1156,8 @@ INSERT INTO Proveedores (ID_Proveedor, Nombre_Empresa, Telefono) VALUES (248,'Da
 INSERT INTO Proveedores (ID_Proveedor, Nombre_Empresa, Telefono) VALUES (249,'Eget Odio Ltd','17590476');
 INSERT INTO Proveedores (ID_Proveedor, Nombre_Empresa, Telefono) VALUES (250,'Aliquet Phasellus Industries','75721251');
 INSERT INTO Proveedores (ID_Proveedor, Nombre_Empresa, Telefono) VALUES (251,'Nec Luctus Felis Corporation','20954990');
-INSERT INTO Proveedores (ID_Proveedor, Nombre_Empresa, Telefono) VALUES (252,'Elit Inc.','1660 7562'),(253,'Nisi LLP','96153936');
+INSERT INTO Proveedores (ID_Proveedor, Nombre_Empresa, Telefono) VALUES (252,'Elit Inc.','16607562'); 
+INSERT INTO Proveedores (ID_Proveedor, Nombre_Empresa, Telefono) VALUES (253,'Nisi LLP','96153936');
 INSERT INTO Proveedores (ID_Proveedor, Nombre_Empresa, Telefono) VALUES (254,'Elit A Institute','11367777');
 INSERT INTO Proveedores (ID_Proveedor, Nombre_Empresa, Telefono) VALUES (255,'Molestie Sodales Mauris Corp.','53759838');
 INSERT INTO Proveedores (ID_Proveedor, Nombre_Empresa, Telefono) VALUES (256,'Quisque Porttitor Foundation','43764942');

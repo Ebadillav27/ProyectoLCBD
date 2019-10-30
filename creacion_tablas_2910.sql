@@ -1,5 +1,4 @@
--- create database Academia; 
-use Academia; 
+-- use Academia; 
 
 
 create table Tipos_Personas
@@ -17,7 +16,7 @@ create table Personas
 	Apellido1			varchar(50)		not null, 
 	Apellido2			varchar(50)		not null, 
 	Direccion			varchar(100)	not null, 
-	Numero_telefono		int				not null, 
+	Numero_telefono		varchar(50)		not null, -- debería ser int, pero hay que corregir las inserciones. 
 	fecha_nacimiento	date			not null, 
 	Fecha_ingreso		date			not null, 
   	tipo_persona 		int				not null,
