@@ -125,14 +125,15 @@ create table Proveedor
 create table Presentacion
 (
 	ID_Presentacion		int				not null,
-	ID_Estudiante		int				not null,
+	Titulo				varchar(50)		not null, 
+	ID_Profesor			int				not null,
 	ID_Arte				int				not null,
 	Fecha_presentacion	date			not null,
 	Duracion			time			not null,
 	Lugar				varchar(50)		not null,
 
 	Primary key(ID_Presentacion),
-	constraint fk_ID_persona_pres		foreign key(ID_Estudiante)		references Estudiante(ID_Estudiante),
+	constraint fk_ID_persona_pres		foreign key(ID_Profesor)	references Profesor(ID_Profesor),
 	constraint fk_ID_arte_pres			foreign key(ID_Arte)		references Arte(ID_Arte)
 )
 
