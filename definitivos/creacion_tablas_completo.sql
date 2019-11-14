@@ -4,15 +4,15 @@ create database Academia;
 use Academia;
 
 create table Tipo_Beca
-(
+(--Listo
 	ID_Beca				int				not null,
-  	Valor				int				not null,
+  	Valor				decimal			not null,
 	Primary key(ID_Beca)
 )
  
 
 create table Estudiante 
-(
+(--Listo
 	ID_Estudiante		int				not null,
 	Nombre				varchar(50)		not null, 
 	Apellido1			varchar(50)		not null, 
@@ -28,12 +28,11 @@ create table Estudiante
 )
 
 create table Profesor 
-(
+(--Listo
 	ID_Profesor			int				not null,
 	Nombre				varchar(50)		not null, 
 	Apellido1			varchar(50)		not null, 
 	Apellido2			varchar(50)		not null, 
-	Direccion			varchar(100)	not null, 
 	Numero_telefono		int				not null, 
 	fecha_nacimiento	date			not null, 
 	Fecha_ingreso		date			not null, 
@@ -41,7 +40,7 @@ create table Profesor
 	primary key(ID_Profesor)	
 )
 
-create table Administrativo
+create table Admistrativo
 (
 	ID_Administrativo	int				not null,
 	Nombre				varchar(50)		not null, 
@@ -149,3 +148,8 @@ create table Inventario
 	constraint fk_id_proveedor_inv		foreign key(ID_Proveedor)	references Proveedor(ID_Proveedor),
 	constraint fk_ID_arte_inv			foreign key(ID_Arte)		references Arte(ID_Arte)
 	)
+	--DELETE FROM Profesor;
+	--Drop Table Admistrativo
+	--SELECT * FROM Estudiante
+
+	
