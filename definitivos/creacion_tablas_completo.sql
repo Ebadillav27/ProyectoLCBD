@@ -1,6 +1,7 @@
 use master;
 DROP DATABASE IF EXISTS Academia;
 create database Academia;
+GO
 use Academia;
 
 create table Tipo_Beca

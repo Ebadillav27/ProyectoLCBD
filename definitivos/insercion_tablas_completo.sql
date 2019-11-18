@@ -1,4 +1,5 @@
-﻿-- insercion en Becas 
+﻿use Academia;
+-- insercion en Becas 
 insert into Tipo_Beca (ID_Beca, Valor) values (0, 1);
 insert into Tipo_Beca (ID_Beca, Valor) values (25, 0.75);
 insert into Tipo_Beca (ID_Beca, Valor) values (50, 0.50);
