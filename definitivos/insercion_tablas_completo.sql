@@ -639,7 +639,7 @@ insert into Profesor (ID_Profesor, Nombre, Apellido1, Apellido2, Numero_telefono
 insert into Profesor (ID_Profesor, Nombre, Apellido1, Apellido2, Numero_telefono, fecha_nacimiento, Fecha_ingreso) values (253971842, 'Corilla', 'Wehden', 'Masic', 82173122, '1992-03-30', '2018-12-10');
 insert into Profesor (ID_Profesor, Nombre, Apellido1, Apellido2, Numero_telefono, fecha_nacimiento, Fecha_ingreso) values (104641932, 'Fair', 'Gellett', 'Stean', 82033784, '1983-01-07', '2015-11-16');
 insert into Profesor (ID_Profesor, Nombre, Apellido1, Apellido2, Numero_telefono, fecha_nacimiento, Fecha_ingreso) values (228120947, 'Cynthy', 'Vernay', 'Leggis', 85175758, '1990-07-26', '2018-08-29');
-insert into Profesor (ID_Profesor, Nombre, Apellido1, Apellido2, Numero_telefono, fecha_nacimiento, Fecha_ingreso) values (274242892, 'Emeline', 'Baldazzi', 'Kennion', 80008092, '1986-01-19', '2015-02-02');
+insert into Profesor (ID_Profesor, Nombre, Apellido1, Apellido2, Numero_telefono, fecha_nacimiento, Fecha_ingreso) values (295618934, 'Emeline', 'Baldazzi', 'Kennion', 80008092, '1986-01-19', '2015-02-02');
 insert into Profesor (ID_Profesor, Nombre, Apellido1, Apellido2, Numero_telefono, fecha_nacimiento, Fecha_ingreso) values (102729955, 'Booth', 'Wardrop', 'Jepp', 83361913, '1992-02-23', '2015-04-27');
 insert into Profesor (ID_Profesor, Nombre, Apellido1, Apellido2, Numero_telefono, fecha_nacimiento, Fecha_ingreso) values (350886493, 'Llewellyn', 'Morfey', 'Harbor', 82423463, '1981-05-02', '2019-03-16');
 insert into Profesor (ID_Profesor, Nombre, Apellido1, Apellido2, Numero_telefono, fecha_nacimiento, Fecha_ingreso) values (184483026, 'Dyane', 'Stidworthy', 'Haversum', 83676999, '1998-11-08', '2019-09-07');
@@ -1607,7 +1607,7 @@ insert into Profesor (ID_Profesor, Nombre, Apellido1, Apellido2, Numero_telefono
 insert into Profesor (ID_Profesor, Nombre, Apellido1, Apellido2, Numero_telefono, fecha_nacimiento, Fecha_ingreso) values (209394335, 'Ronnie', 'Falkous', 'McIlheran', 81753522, '1984-11-25', '2018-11-03');
 insert into Profesor (ID_Profesor, Nombre, Apellido1, Apellido2, Numero_telefono, fecha_nacimiento, Fecha_ingreso) values (356967645, 'Rosie', 'Tinwell', 'Ollarenshaw', 84587281, '1991-01-03', '2019-02-10');
 insert into Profesor (ID_Profesor, Nombre, Apellido1, Apellido2, Numero_telefono, fecha_nacimiento, Fecha_ingreso) values (133838029, 'Tallou', 'Hendricks', 'Huitson', 81903059, '1998-02-16', '2017-11-18');
-insert into Profesor (ID_Profesor, Nombre, Apellido1, Apellido2, Numero_telefono, fecha_nacimiento, Fecha_ingreso) values (282174617, 'Rayner', 'Haresnaip', 'Frarey', 81099059, '1983-03-22', '2015-02-26');
+insert into Profesor (ID_Profesor, Nombre, Apellido1, Apellido2, Numero_telefono, fecha_nacimiento, Fecha_ingreso) values (243370115, 'Rayner', 'Haresnaip', 'Frarey', 81099059, '1983-03-22', '2015-02-26');
 insert into Profesor (ID_Profesor, Nombre, Apellido1, Apellido2, Numero_telefono, fecha_nacimiento, Fecha_ingreso) values (295618933, 'Sebastiano', 'Grigori', 'Hessle', 82123827, '1988-10-14', '2019-05-13');
 
 -- insercion en Administrativo
