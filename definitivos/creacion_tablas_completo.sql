@@ -94,7 +94,7 @@ create table Matriculacion
 	ID_Curso			int				not null, 
 	ID_Estudiante		int				not null,
 	ID_Administrativo	int				not null, 
-	Total				int				not null, -- estos datos se generan multiplicando el costo del curso por la beca del estudainte (Valor en Becas)
+	--Total				int				not null, -- estos datos se generan multiplicando el costo del curso por la beca del estudainte (Valor en Becas)
 
 	primary key(ID_Matriculacion),
 	constraint fk_id_curso_matric		foreign key(ID_Curso)		references curso(ID_Curso),
@@ -107,7 +107,7 @@ create table Factura
 (
 	ID_Factura			int				not null, 
 	ID_Estudiante		int				not null, 
-	Total_Pagado		int				not null, -- Generada a partir de la suma de los datos de matriculacion segun estudiante	
+	--Total_Pagado		int				not null, -- Generada a partir de la suma de los datos de matriculacion segun estudiante	
   	Fecha_pago			date			not null, 
 
 	Primary key(ID_Factura), 
