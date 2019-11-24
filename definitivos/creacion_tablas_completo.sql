@@ -107,11 +107,13 @@ create table Factura
 (
 	ID_Factura			int				not null, 
 	ID_Estudiante		int				not null, 
+	ID_Administrativo	int 			not null,
 	--Total_Pagado		int				not null, -- Generada a partir de la suma de los datos de matriculacion segun estudiante	
   	Fecha_pago			date			not null, 
 
 	Primary key(ID_Factura), 
-	constraint fk_ID_Persona_factura	foreign key(ID_Estudiante)		references Estudiante(ID_Estudiante)
+	constraint fk_ID_Estudiante_factura	foreign key(ID_Estudiante)		references Estudiante(ID_Estudiante),
+	constraint fk_ID_admin_factura		foreign key(ID_Administrativo)	references Administrativo(ID_Administrativo)
 ) 
 
 create table Proveedor
