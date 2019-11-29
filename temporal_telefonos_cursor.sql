@@ -9,6 +9,7 @@ create table Telefonos_General_V2
 	
 	primary key (Cedula)
 )
+
 INSERT INTO Telefonos_General_V2 (Cedula)
 SELECT distinct Cedula from Telefonos_General 
 
@@ -19,36 +20,54 @@ update Telefonos_General_V2
 set Telefonos = ''
 ------------------------------------------------ 
 
+--PRIMER CURSOR 
 
-DECLARE @Cedula		varchar(50),
-		@Telefono	varchar(50),
-		@temp		int		
+DECLARE @Cedula_TN		varchar(50),
+		@Telefonos_TN	varchar(50),
+		@ntels_TN		int
+		
+DECLARE cursor_telefonos_nuevos CURSOR
 
-DECLARE cursor_telefono_final CURSOR
-FOR SELECT distinct Cedula, Telefono from Telefonos_General 
-OPEN cursor_telefono_final
+FOR SELECT Cedula, Telefonos, Cantidad_Telefonos from Telefonos_General_V2 
 
-FETCH NEXT FROM cursor_telefono_final INTO @Cedula, @Telefono
+OPEN cursor_telefonos_nuevos
+
+FETCH NEXT FROM cursor_telefonos_nuevos INTO @Cedula_TN, @Telefonos_TN, @ntels_TN 
 
 WHILE @@FETCH_STATUS = 0
-BEGIN 
-	/* 
-	IF @temp IS NULL OR @temp <> @Cedula 
-				
-		INSERT INTO Telefonos_General_V2 (Cedula, Cantidad_Telefonos, Telefonos)
-		values (@Cedula, @cnt_tels, @Telefono)
-		
-	*/
-	ELSE 
-		UPDATE Telefonos_General_V2 
-		SET Telefonos = Telefonos + ', ' + @Telefono WHERE @Cedula = Cedula 
-		UPDATE Telefonos_General_V2
-		SET Cantidad_Telefonos = Cantidad_Telefonos + 1 
+BEGIN -- INICIA PRIMER CURSOR, Y SE DECLARA EL SEGUNDO 
 	
-END
-CLOSE cursor_telefono_final 
-DEALLOCATE cursor_telefono_final 
-select * from Telefonos_General_V2;
+	DECLARE @cedula_TV varchar(50),
+			@telefono_TV varchar(50) 
+			
+	DECLARE cursor_telefonos_viejos CURSOR 
+	FOR SELECT Cedula, Telefono FROM Telefonos_General
+	OPEN cursor_telefonos_viejos
+	FETCH NEXT FROM cursor_telefonos_viejos INTO @cedula_TV, @telefono_TV
+	WHILE @@FETCH_STATUS = 0
+	BEGIN -- INICIA SEGUNDO CURSOR
+		IF @Cedula_TN = @cedula_TV  -- meter los datos si encuentra un match  
+			BEGIN -- empiezan acciones del IF 
+			UPDATE Telefonos_General_V2 
+			SET Telefonos = @Telefonos_TN + ', ' + @Telefono_TV 
+				WHERE @Cedula_TN = @cedula_TV
+				
+			UPDATE Telefonos_General_V2
+			SET Cantidad_Telefonos = @ntels_TN +1 
+				WHERE @Cedula_TN = @cedula_TV
+			END -- TERMINAN ACCIONES DEL IF 
+	
+		
+		
+	END -- TERMINA EL CURSOR INTERIOR 
+	CLOSE cursor_telefonos_viejos 
+	DEALLOCATE cursor_telefonos_viejos 
+		
+	
+END -- TERMINA CURSOR EXTERIOR 
+CLOSE cursor_telefonos_nuevos
+DEALLOCATE cursor_telefonos_nuevos
+
 -------------------------------------------------------
 /*
 delete from Telefonos_General_V2;
