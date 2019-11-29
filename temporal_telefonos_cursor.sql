@@ -1,3 +1,4 @@
+/* -- NO BORRAR, COMENTADO PARA PROBAR EL CURSOR, SE NECESITA PARA HACER LA TABLA NUEVA Y METERLE LOS DATOS  
 drop table Telefonos_General_V2;
 
 create table Telefonos_General_V2
@@ -18,55 +19,59 @@ set Cantidad_Telefonos = 0
 
 update Telefonos_General_V2 
 set Telefonos = ''
+*/ 
 ------------------------------------------------ 
 
---PRIMER CURSOR 
-
-DECLARE @Cedula_TN		varchar(50),
-		@Telefonos_TN	varchar(50),
-		@ntels_TN		int
+--drop proc ejecutor_cursores
+CREATE PROCEDURE ejecutor_cursores --procedimiento almacenado para ejecutar los cursores 
+AS
+	DECLARE @Cedula_TN		varchar(50),
+			@Telefonos_TN	varchar(50),
+			@ntels_TN		int
 		
-DECLARE cursor_telefonos_nuevos CURSOR
+	DECLARE cursor_telefonos_nuevos CURSOR --PRIMER CURSOR 
 
-FOR SELECT Cedula, Telefonos, Cantidad_Telefonos from Telefonos_General_V2 
+	FOR SELECT Cedula, Telefonos, Cantidad_Telefonos from Telefonos_General_V2 
 
-OPEN cursor_telefonos_nuevos
+	OPEN cursor_telefonos_nuevos
 
-FETCH NEXT FROM cursor_telefonos_nuevos INTO @Cedula_TN, @Telefonos_TN, @ntels_TN 
+	FETCH NEXT FROM cursor_telefonos_nuevos INTO @Cedula_TN, @Telefonos_TN, @ntels_TN 
 
-WHILE @@FETCH_STATUS = 0
-BEGIN -- INICIA PRIMER CURSOR, Y SE DECLARA EL SEGUNDO 
-	
-	DECLARE @cedula_TV varchar(50),
-			@telefono_TV varchar(50) 
-			
-	DECLARE cursor_telefonos_viejos CURSOR 
-	FOR SELECT Cedula, Telefono FROM Telefonos_General
-	OPEN cursor_telefonos_viejos
-	FETCH NEXT FROM cursor_telefonos_viejos INTO @cedula_TV, @telefono_TV
 	WHILE @@FETCH_STATUS = 0
-	BEGIN -- INICIA SEGUNDO CURSOR
-		IF @Cedula_TN = @cedula_TV  -- meter los datos si encuentra un match  
-			BEGIN -- empiezan acciones del IF 
-			UPDATE Telefonos_General_V2 
-			SET Telefonos = @Telefonos_TN + ', ' + @Telefono_TV 
-				WHERE @Cedula_TN = @cedula_TV
+	BEGIN -- INICIA CICLO DEL PRIMER CURSOR, Y SE DECLARA EL SEGUNDO 
+	
+		DECLARE @cedula_TV varchar(50),
+				@telefono_TV varchar(50) 
+			
+		DECLARE cursor_telefonos_viejos CURSOR -- SEGUNDO CURSOR 
+		FOR SELECT Cedula, Telefono FROM Telefonos_General
+		OPEN cursor_telefonos_viejos
+		FETCH NEXT FROM cursor_telefonos_viejos INTO @cedula_TV, @telefono_TV
+		WHILE @@FETCH_STATUS = 0
+		BEGIN -- INICIA CICLO DEL SEGUNDO CURSOR (INTERIOR)
+			IF @Cedula_TN = @cedula_TV  -- meter los datos si encuentra un match  
+				BEGIN -- empiezan acciones del IF 
+					UPDATE Telefonos_General_V2 
+					SET Telefonos = @Telefonos_TN + ', ' + @Telefono_TV 
+						WHERE @Cedula_TN = @cedula_TV
 				
-			UPDATE Telefonos_General_V2
-			SET Cantidad_Telefonos = @ntels_TN +1 
-				WHERE @Cedula_TN = @cedula_TV
-			END -- TERMINAN ACCIONES DEL IF 
-	
+					UPDATE Telefonos_General_V2
+					SET Cantidad_Telefonos = @ntels_TN +1 
+						WHERE @Cedula_TN = @cedula_TV
+					FETCH NEXT FROM cursor_telefonos_viejos INTO @cedula_TV, @telefono_TV 
+				END; -- TERMINAN ACCIONES DEL IF 
+			ELSE
+				FETCH NEXT FROM cursor_telefonos_viejos INTO @cedula_TV, @telefono_TV 
 		
+			
+		END; -- TERMINA CICLO DEL SEGUNDO CURSOR (INTERIOR) 
+		CLOSE cursor_telefonos_viejos 
+		DEALLOCATE cursor_telefonos_viejos 
 		
-	END -- TERMINA EL CURSOR INTERIOR 
-	CLOSE cursor_telefonos_viejos 
-	DEALLOCATE cursor_telefonos_viejos 
-		
-	
-END -- TERMINA CURSOR EXTERIOR 
-CLOSE cursor_telefonos_nuevos
-DEALLOCATE cursor_telefonos_nuevos
+		FETCH NEXT FROM cursor_telefonos_nuevos INTO @Cedula_TN, @Telefonos_TN, @ntels_TN 
+	END; -- TERMINA CICLO DEL PRIMER CURSOR (EXTERIOR) 
+	CLOSE cursor_telefonos_nuevos
+	DEALLOCATE cursor_telefonos_nuevos
 
 -------------------------------------------------------
 /*
@@ -128,4 +133,3 @@ CLOSE cursor_telefonos;
 DEALLOCATE cursor_telefonos; 
 */
 -------------------------------------------------------
-select * from Telefonos_General_V2;
