@@ -59,10 +59,8 @@ AS
 					SET Cantidad_Telefonos = @ntels_TN +1 
 						WHERE @Cedula_TN = @cedula_TV
 					FETCH NEXT FROM cursor_telefonos_viejos INTO @cedula_TV, @telefono_TV 
-				END; -- TERMINAN ACCIONES DEL IF 
-			ELSE
-				FETCH NEXT FROM cursor_telefonos_viejos INTO @cedula_TV, @telefono_TV 
-		
+				END; -- TERMINAN ACCIONES DEL IF 			
+			FETCH NEXT FROM cursor_telefonos_viejos INTO @cedula_TV, @telefono_TV 
 			
 		END; -- TERMINA CICLO DEL SEGUNDO CURSOR (INTERIOR) 
 		CLOSE cursor_telefonos_viejos 
