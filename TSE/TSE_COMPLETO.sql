@@ -1,13 +1,12 @@
-create proc TSE_ELIMINACION 
-AS 
-	drop table Personas
-	drop table Distritos
-	drop table Cantones
-	drop table Provincias 
-GO
-
+--drop proc if exists TSE_COMPLETO
+---
 create proc TSE_COMPLETO
 AS 
+	drop table IF EXISTS Personas
+	drop table IF EXISTS Distritos
+	drop table IF EXISTS Cantones
+	drop table IF EXISTS Provincias 
+
 	create table Provincias (
 		ID_Provincia	int			IDENTITY(1,1),  
 		Nombre			varchar(50)	not null, 
@@ -66,5 +65,4 @@ AS
 		SELECT CONVERT(nvarchar(15),cedula), CONVERT(int, codigo_distrito), CONVERT(tinyint,sexo), CONVERT(date, fecha_caduc), CONVERT(int,junta_votos), CONVERT(varchar(50),nombre),CONVERT(varchar(30),apellido1),CONVERT(varchar(30),apellido2) FROM dbo.PADRON_COMPLETO;
 GO
 
---exec TSE_ELIMINACION
 --exec TSE_COMPLETO
