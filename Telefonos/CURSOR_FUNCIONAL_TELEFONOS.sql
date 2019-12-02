@@ -1,3 +1,4 @@
+-- este es el mismo cursor que el que aparece en el procedimiento almacenado, solo sale en este archivo aparte por cuestiones de claridad
 DECLARE @telefono_Tabla_Vieja	varchar(50), 
 		@Cedula_Tabla_Vieja		varchar(50)						
 
