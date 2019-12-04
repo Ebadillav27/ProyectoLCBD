@@ -1,5 +1,6 @@
--- drop proc if exists Creador_Telefonos
---- 
+drop proc if exists Creador_Telefonos
+GO
+
 create proc Creador_Telefonos 
 as 
 
@@ -16,7 +17,7 @@ create table Telefonos_General_V2
 )
 
 INSERT INTO Telefonos_General_V2 (Cedula)
-SELECT distinct Cedula from Telefonos_General 
+SELECT distinct /*top (1000)*/ Cedula from Telefonos_General --quitar el top 
 ORDER BY Cedula
 
 update Telefonos_General_V2 
@@ -25,12 +26,15 @@ set Cantidad_Telefonos = 0
 update Telefonos_General_V2 
 set Telefonos = ''
 
+/*
 update Telefonos_General_V2
 set Nombre = (Select top(1) Nombre_Cliente from Telefonos_General order by Cedula ) 
+*/ 
 
 --- CURSOR 
 DECLARE @telefono_Tabla_Vieja	varchar(50), 
-		@Cedula_Tabla_Vieja		varchar(50)						
+		@Cedula_Tabla_Vieja		varchar(50)
+		-- aquí podría venir el nombre y luego nada más asignarlo en el update 
 
 DECLARE cursor_telefonos CURSOR FOR 
 	SELECT Telefono, Cedula FROM Telefonos_General 
@@ -47,6 +51,7 @@ BEGIN -- INICIO CICLO EXTERNO
 			
 		UPDATE Telefonos_General_V2 
 			set Telefonos += ', ' + @telefono_Tabla_Vieja WHERE Cedula = @Cedula_Tabla_Vieja AND Telefonos not like ''  
+
 		UPDATE Telefonos_General_V2
 			SET Telefonos = @telefono_Tabla_Vieja WHERE Cedula = @Cedula_Tabla_Vieja AND Telefonos LIKE ''
 			
@@ -61,3 +66,4 @@ CLOSE cursor_telefonos
 DEALLOCATE cursor_telefonos
 
 exec Creador_Telefonos
+

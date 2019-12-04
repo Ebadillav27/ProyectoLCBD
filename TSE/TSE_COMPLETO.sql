@@ -1,4 +1,7 @@
---drop proc if exists TSE_COMPLETO
+drop proc if exists TSE_COMPLETO
+go 
+use TSE
+GO
 ---
 create proc TSE_COMPLETO
 AS 
@@ -65,4 +68,4 @@ AS
 		SELECT CONVERT(nvarchar(15),cedula), CONVERT(int, codigo_distrito), CONVERT(tinyint,sexo), CONVERT(date, fecha_caduc), CONVERT(int,junta_votos), CONVERT(varchar(50),nombre),CONVERT(varchar(30),apellido1),CONVERT(varchar(30),apellido2) FROM dbo.PADRON_COMPLETO;
 GO
 
---exec TSE_COMPLETO
+exec TSE_COMPLETO

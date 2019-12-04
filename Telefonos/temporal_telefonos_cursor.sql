@@ -22,7 +22,8 @@ set Telefonos = ''
 */ 
 ------------------------------------------------ 
 
---drop proc ejecutor_cursores
+drop proc if exists ejecutor_cursores
+GO 
 CREATE PROCEDURE ejecutor_cursores --procedimiento almacenado para ejecutar los cursores 
 AS
 	DECLARE @Cedula_TN		varchar(50),
@@ -40,27 +41,33 @@ AS
 	WHILE @@FETCH_STATUS = 0
 	BEGIN -- INICIA CICLO DEL PRIMER CURSOR, Y SE DECLARA EL SEGUNDO 
 	
-		DECLARE @cedula_TV varchar(50),
-				@telefono_TV varchar(50) 
+		DECLARE @cedula_TV		varchar(50),
+				@Nombre_TV		varchar(50),
+				@telefono_TV	varchar(50) 
 			
 		DECLARE cursor_telefonos_viejos CURSOR -- SEGUNDO CURSOR 
-		FOR SELECT Cedula, Telefono FROM Telefonos_General
+		FOR SELECT Cedula, Nombre_Cliente, Telefono FROM Telefonos_General
 		OPEN cursor_telefonos_viejos
-		FETCH NEXT FROM cursor_telefonos_viejos INTO @cedula_TV, @telefono_TV
+		FETCH NEXT FROM cursor_telefonos_viejos INTO @cedula_TV, @Nombre_TV, @telefono_TV
+
 		WHILE @@FETCH_STATUS = 0
 		BEGIN -- INICIA CICLO DEL SEGUNDO CURSOR (INTERIOR)
 			IF @Cedula_TN = @cedula_TV  -- meter los datos si encuentra un match  
 				BEGIN -- empiezan acciones del IF 
 					UPDATE Telefonos_General_V2 
 					SET Telefonos = @Telefonos_TN + ', ' + @Telefono_TV 
-						WHERE @Cedula_TN = @cedula_TV
+						WHERE Cedula = @cedula_TV
 				
 					UPDATE Telefonos_General_V2
-					SET Cantidad_Telefonos = @ntels_TN +1 
-						WHERE @Cedula_TN = @cedula_TV
-					FETCH NEXT FROM cursor_telefonos_viejos INTO @cedula_TV, @telefono_TV 
+					SET Cantidad_Telefonos += 1 
+						WHERE Cedula = @cedula_TV
+					
+					
+					UPDATE Telefonos_General_V2
+					SET Nombre = @Nombre_TV WHERE Cedula = @cedula_TV
+
 				END; -- TERMINAN ACCIONES DEL IF 			
-			FETCH NEXT FROM cursor_telefonos_viejos INTO @cedula_TV, @telefono_TV 
+			FETCH NEXT FROM cursor_telefonos_viejos INTO @cedula_TV, @Nombre_TV, @telefono_TV 
 			
 		END; -- TERMINA CICLO DEL SEGUNDO CURSOR (INTERIOR) 
 		CLOSE cursor_telefonos_viejos 
@@ -70,7 +77,7 @@ AS
 	END; -- TERMINA CICLO DEL PRIMER CURSOR (EXTERIOR) 
 	CLOSE cursor_telefonos_nuevos
 	DEALLOCATE cursor_telefonos_nuevos
-
+exec ejecutor_cursores
 -------------------------------------------------------
 /*
 delete from Telefonos_General_V2;
