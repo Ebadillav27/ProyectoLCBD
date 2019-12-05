@@ -19,11 +19,11 @@ create table Telefonos_General_V2
 )
 
 INSERT INTO Telefonos_General_V2 (Cedula)
-SELECT distinct top (1000) Cedula from Telefonos_General --quitar el top 
+SELECT distinct Cedula from Telefonos_General --quitar el top 
 ORDER BY Cedula
 
 update Telefonos_General_V2 
-set Cantidad_Telefonos = 0
+set Cantidad_Telefonos = 0 
 
 update Telefonos_General_V2 
 set Telefonos = ''
@@ -31,7 +31,8 @@ set Telefonos = ''
 --- CURSOR, SOLO ES UNO 
 DECLARE @telefono_Tabla_Vieja	varchar(50), 
 		@Cedula_Tabla_Vieja		varchar(50),
-		@Nombre					varchar(50) -- cambio temporal 
+		@Nombre					varchar(50),
+		@Telefono_temporal		varchar(50) 
 
 DECLARE cursor_telefonos CURSOR FOR 
 	SELECT Telefono, Cedula, Nombre_Cliente FROM Telefonos_General 
@@ -42,19 +43,30 @@ FETCH NEXT FROM cursor_telefonos INTO @telefono_Tabla_Vieja, @Cedula_Tabla_Vieja
 WHILE @@FETCH_STATUS = 0
 BEGIN -- INICIO CICLO
 
+		IF (SELECT Telefonos from Telefonos_General_V2 where Cedula = @Cedula_Tabla_Vieja) like ''
 	
-		UPDATE Telefonos_General_V2
-			set Cantidad_Telefonos += 1 WHERE Cedula = @Cedula_Tabla_Vieja
-			
+		BEGIN -- COMIENZA EL IF 
+			SET @Telefono_temporal = @telefono_Tabla_Vieja
+		END	  -- TERMINA EL IF 	
 		
-		UPDATE Telefonos_General_V2 
-			set Telefonos += ', ' + @telefono_Tabla_Vieja WHERE Cedula = @Cedula_Tabla_Vieja AND Telefonos not like ''  
+		ELSE 
+			
+		BEGIN -- COMIENZA EL ELSE 		
+			SET @Telefono_temporal = ', ' + @telefono_Tabla_Vieja
+
+		END	  -- TERMINA EL ELSE 
 
 		UPDATE Telefonos_General_V2
-			SET Telefonos = @telefono_Tabla_Vieja WHERE Cedula = @Cedula_Tabla_Vieja AND Telefonos LIKE ''		
+			set Cantidad_Telefonos += 1 
+			WHERE Cedula = @Cedula_Tabla_Vieja
 
 		UPDATE Telefonos_General_V2 
-			Set Nombre = @Nombre WHERE Cedula = @Cedula_Tabla_Vieja
+			set Telefonos += @telefono_temporal 
+			WHERE Cedula = @Cedula_Tabla_Vieja  
+				
+
+		UPDATE Telefonos_General_V2 
+			Set Nombre = @Nombre WHERE Cedula = @Cedula_Tabla_Vieja and Nombre is Null 
 		 
 	
 	
