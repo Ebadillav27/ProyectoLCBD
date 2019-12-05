@@ -1,27 +1,3 @@
-/* -- NO BORRAR, COMENTADO PARA PROBAR EL CURSOR, SE NECESITA PARA HACER LA TABLA NUEVA Y METERLE LOS DATOS  
-drop table if exists Telefonos_General_V2;
-
-create table Telefonos_General_V2
-(
-	Cedula				int				not null, 
-	-- Nombre				varchar(50)		not null, 
-	Cantidad_Telefonos	int,				-- not null,
-	Telefonos			varchar(100),	--not null --,
-	
-	primary key (Cedula)
-)
-
-INSERT INTO Telefonos_General_V2 (Cedula)
-SELECT distinct Cedula from Telefonos_General 
-
-update Telefonos_General_V2 
-set Cantidad_Telefonos = 0
-
-update Telefonos_General_V2 
-set Telefonos = ''
-*/ 
------------------------------------------------- 
-
 drop proc if exists ejecutor_cursores
 GO 
 CREATE PROCEDURE ejecutor_cursores --procedimiento almacenado para ejecutar los cursores 

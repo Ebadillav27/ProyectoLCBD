@@ -1,5 +1,6 @@
+use Telefonos; 
+GO
 drop proc if exists Creador_Telefonos
-use Telefono_Asignacion; 
 GO
 
 create proc Creador_Telefonos 
@@ -27,12 +28,7 @@ set Cantidad_Telefonos = 0
 update Telefonos_General_V2 
 set Telefonos = ''
 
-/*
-update Telefonos_General_V2
-set Nombre = (Select top(1) Nombre_Cliente from Telefonos_General order by Cedula ) 
-*/ 
-
---- CURSOR 
+--- CURSOR, SOLO ES UNO 
 DECLARE @telefono_Tabla_Vieja	varchar(50), 
 		@Cedula_Tabla_Vieja		varchar(50),
 		@Nombre					varchar(50) -- cambio temporal 
@@ -44,7 +40,7 @@ OPEN cursor_telefonos
 FETCH NEXT FROM cursor_telefonos INTO @telefono_Tabla_Vieja, @Cedula_Tabla_Vieja, @Nombre
 
 WHILE @@FETCH_STATUS = 0
-BEGIN -- INICIO CICLO EXTERNO 
+BEGIN -- INICIO CICLO
 
 	
 		UPDATE Telefonos_General_V2
@@ -65,7 +61,7 @@ BEGIN -- INICIO CICLO EXTERNO
 	FETCH NEXT FROM cursor_telefonos 
 		INTO @telefono_Tabla_Vieja, @Cedula_Tabla_Vieja, @Nombre	
 
-END; -- FIN CICLO EXTERNO
+END; -- FIN CICLO
 CLOSE cursor_telefonos
 DEALLOCATE cursor_telefonos
 
