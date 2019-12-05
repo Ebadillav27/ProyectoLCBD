@@ -1,5 +1,5 @@
 /* -- NO BORRAR, COMENTADO PARA PROBAR EL CURSOR, SE NECESITA PARA HACER LA TABLA NUEVA Y METERLE LOS DATOS  
-drop table Telefonos_General_V2;
+drop table if exists Telefonos_General_V2;
 
 create table Telefonos_General_V2
 (

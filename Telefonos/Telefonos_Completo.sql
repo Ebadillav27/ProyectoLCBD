@@ -1,4 +1,5 @@
 drop proc if exists Creador_Telefonos
+use Telefono_Asignacion; 
 GO
 
 create proc Creador_Telefonos 
@@ -17,7 +18,7 @@ create table Telefonos_General_V2
 )
 
 INSERT INTO Telefonos_General_V2 (Cedula)
-SELECT distinct /*top (1000)*/ Cedula from Telefonos_General --quitar el top 
+SELECT distinct top (1000) Cedula from Telefonos_General --quitar el top 
 ORDER BY Cedula
 
 update Telefonos_General_V2 
@@ -33,14 +34,14 @@ set Nombre = (Select top(1) Nombre_Cliente from Telefonos_General order by Cedul
 
 --- CURSOR 
 DECLARE @telefono_Tabla_Vieja	varchar(50), 
-		@Cedula_Tabla_Vieja		varchar(50)
-		-- aquí podría venir el nombre y luego nada más asignarlo en el update 
+		@Cedula_Tabla_Vieja		varchar(50),
+		@Nombre					varchar(50) -- cambio temporal 
 
 DECLARE cursor_telefonos CURSOR FOR 
-	SELECT Telefono, Cedula FROM Telefonos_General 
+	SELECT Telefono, Cedula, Nombre_Cliente FROM Telefonos_General 
 
 OPEN cursor_telefonos 
-FETCH NEXT FROM cursor_telefonos INTO @telefono_Tabla_Vieja, @Cedula_Tabla_Vieja
+FETCH NEXT FROM cursor_telefonos INTO @telefono_Tabla_Vieja, @Cedula_Tabla_Vieja, @Nombre
 
 WHILE @@FETCH_STATUS = 0
 BEGIN -- INICIO CICLO EXTERNO 
@@ -49,21 +50,24 @@ BEGIN -- INICIO CICLO EXTERNO
 		UPDATE Telefonos_General_V2
 			set Cantidad_Telefonos += 1 WHERE Cedula = @Cedula_Tabla_Vieja
 			
+		
 		UPDATE Telefonos_General_V2 
 			set Telefonos += ', ' + @telefono_Tabla_Vieja WHERE Cedula = @Cedula_Tabla_Vieja AND Telefonos not like ''  
 
 		UPDATE Telefonos_General_V2
-			SET Telefonos = @telefono_Tabla_Vieja WHERE Cedula = @Cedula_Tabla_Vieja AND Telefonos LIKE ''
-			
+			SET Telefonos = @telefono_Tabla_Vieja WHERE Cedula = @Cedula_Tabla_Vieja AND Telefonos LIKE ''		
+
+		UPDATE Telefonos_General_V2 
+			Set Nombre = @Nombre WHERE Cedula = @Cedula_Tabla_Vieja
 		 
 	
 	
 	FETCH NEXT FROM cursor_telefonos 
-		INTO @telefono_Tabla_Vieja, @Cedula_Tabla_Vieja	
+		INTO @telefono_Tabla_Vieja, @Cedula_Tabla_Vieja, @Nombre	
 
 END; -- FIN CICLO EXTERNO
 CLOSE cursor_telefonos
 DEALLOCATE cursor_telefonos
 
-exec Creador_Telefonos
+--exec Creador_Telefonos
 

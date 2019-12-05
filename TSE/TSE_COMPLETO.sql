@@ -1,5 +1,4 @@
-drop proc if exists TSE_COMPLETO
-go 
+drop proc if exists TSE_COMPLETO 
 use TSE
 GO
 ---

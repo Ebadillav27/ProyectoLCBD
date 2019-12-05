@@ -1,0 +1,1 @@
+Correr los archivos que terminan con "_Completo.sql"  
