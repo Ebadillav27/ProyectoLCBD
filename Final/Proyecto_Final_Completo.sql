@@ -1,4 +1,5 @@
-﻿use master;
+﻿/*
+use master;
 GO
 -------------------------------------------
 DROP DATABASE IF EXISTS ProyectoFinal; 
@@ -206,6 +207,9 @@ DEALLOCATE cursor_telefonos
 GO
 ------------------------------------------------------------------------
 ------------------------------------------------------------------------
+*/
+DROP PROC IF EXISTS AcademiaCompleto 
+GO
 
 CREATE PROCEDURE AcademiaCompleto
  AS
@@ -254,9 +258,9 @@ create table Academia.Estudiante
 	constraint fk_tipo_beca_estudiante	foreign key(ID_Beca) references Academia.Tipo_Beca(ID_Beca),
 	
 	constraint fk_Cedula_TSE_estudiante foreign key(Cedula_TSE) 
-	  references TSE.Persona(Cedula),
+	  references TSE.Personas(Cedula),
 	constraint fk_Cedula_TEL_estudiante foreign key(Cedula_TEL) 
-	  references Telefonos.Telefonos_General(Cedula) 
+	  references Telefonos.Telefonos_General_V2(Cedula) 
 )
 
 create table Academia.Profesor 
@@ -295,7 +299,7 @@ create table Academia.Aula
 	Primary key(ID_Aula)
 )
 
-create table Arte
+create table Academia.Arte
 (
 	ID_Arte				int				not null,
 	Nombre				varchar(50)		not null,
@@ -316,7 +320,7 @@ create table Academia.Curso
 	Primary key(ID_Curso), 
 	constraint fk_id_profesor_cursos	foreign key(ID_Profesor)	references Academia.Profesor(ID_Profesor), 
 	constraint fk_id_aula_cursos		foreign key(ID_Aula)		references Academia.Aula(ID_Aula),
-	constraint fk_id_arte_cursos		foreign key(ID_Arte)		references Arte(ID_Arte)
+	constraint fk_id_arte_cursos		foreign key(ID_Arte)		references Academia.Arte(ID_Arte)
 )
 
 create table Academia.Matriculacion
@@ -370,7 +374,7 @@ create table Academia.Presentacion
 	Primary key(ID_Presentacion),
 
 	constraint fk_ID_profe_pres		foreign key(ID_Profesor)		references Academia.Profesor(ID_Profesor),
-	constraint fk_ID_arte_pres			foreign key(ID_Arte)		references Arte(ID_Arte)
+	constraint fk_ID_arte_pres			foreign key(ID_Arte)		references Academia.Arte(ID_Arte)
 )
 
 create table Academia.Inventario
@@ -383,7 +387,7 @@ create table Academia.Inventario
 
 	Primary key(ID_Material),
 	constraint fk_id_proveedor_inv		foreign key(ID_Proveedor)	references Academia.Proveedor(ID_Proveedor),
-	constraint fk_ID_arte_inv			foreign key(ID_Arte)		references Arte(ID_Arte)
+	constraint fk_ID_arte_inv			foreign key(ID_Arte)		references Academia.Arte(ID_Arte)
 	)
 
 --------------------------------------------------------------------------------
@@ -2604,307 +2608,307 @@ insert into Academia.Aula (ID_Aula, Capacidad_maxima) values (298, 25);
 insert into Academia.Aula (ID_Aula, Capacidad_maxima) values (299, 25);
 insert into Academia.Aula (ID_Aula, Capacidad_maxima) values (300, 25);
 
--- insercion en Artes
-insert into Arte (ID_Arte, Nombre) values (1, 'Pintura');
-insert into Arte (ID_Arte, Nombre) values (2, 'Danza');
-insert into Arte (ID_Arte, Nombre) values (3, 'Arquitectura');
-insert into Arte (ID_Arte, Nombre) values (4, 'Musica');
-insert into Arte (ID_Arte, Nombre) values (5, 'Literatura');
-insert into Arte (ID_Arte, Nombre) values (6, 'Cine');
-insert into Arte (ID_Arte, Nombre) values (7, 'Escultura');
-insert into Arte (ID_Arte, Nombre) values (8, 'Fotografia');
-insert into Arte (ID_Arte, Nombre) values (9, 'Opera');
-insert into Arte (ID_Arte, Nombre) values (10, 'Teatro');
-insert into Arte (ID_Arte, Nombre) values (11, 'Mauv');
-insert into Arte (ID_Arte, Nombre) values (12, 'Puce');
-insert into Arte (ID_Arte, Nombre) values (13, 'Indigo');
-insert into Arte (ID_Arte, Nombre) values (14, 'Aquamarine');
-insert into Arte (ID_Arte, Nombre) values (15, 'Maroon');
-insert into Arte (ID_Arte, Nombre) values (16, 'Aquamarine');
-insert into Arte (ID_Arte, Nombre) values (17, 'Turquoise');
-insert into Arte (ID_Arte, Nombre) values (18, 'Red');
-insert into Arte (ID_Arte, Nombre) values (19, 'Indigo');
-insert into Arte (ID_Arte, Nombre) values (20, 'Aquamarine');
-insert into Arte (ID_Arte, Nombre) values (21, 'Blue');
-insert into Arte (ID_Arte, Nombre) values (22, 'Red');
-insert into Arte (ID_Arte, Nombre) values (23, 'Violet');
-insert into Arte (ID_Arte, Nombre) values (24, 'Turquoise');
-insert into Arte (ID_Arte, Nombre) values (25, 'Goldenrod');
-insert into Arte (ID_Arte, Nombre) values (26, 'Maroon');
-insert into Arte (ID_Arte, Nombre) values (27, 'Khaki');
-insert into Arte (ID_Arte, Nombre) values (28, 'Pink');
-insert into Arte (ID_Arte, Nombre) values (29, 'Goldenrod');
-insert into Arte (ID_Arte, Nombre) values (30, 'Green');
-insert into Arte (ID_Arte, Nombre) values (31, 'Teal');
-insert into Arte (ID_Arte, Nombre) values (32, 'Crimson');
-insert into Arte (ID_Arte, Nombre) values (33, 'Orange');
-insert into Arte (ID_Arte, Nombre) values (34, 'Purple');
-insert into Arte (ID_Arte, Nombre) values (35, 'Fuscia');
-insert into Arte (ID_Arte, Nombre) values (36, 'Purple');
-insert into Arte (ID_Arte, Nombre) values (37, 'Violet');
-insert into Arte (ID_Arte, Nombre) values (38, 'Maroon');
-insert into Arte (ID_Arte, Nombre) values (39, 'Pink');
-insert into Arte (ID_Arte, Nombre) values (40, 'Turquoise');
-insert into Arte (ID_Arte, Nombre) values (41, 'Indigo');
-insert into Arte (ID_Arte, Nombre) values (42, 'Goldenrod');
-insert into Arte (ID_Arte, Nombre) values (43, 'Pink');
-insert into Arte (ID_Arte, Nombre) values (44, 'Orange');
-insert into Arte (ID_Arte, Nombre) values (45, 'Goldenrod');
-insert into Arte (ID_Arte, Nombre) values (46, 'Khaki');
-insert into Arte (ID_Arte, Nombre) values (47, 'Purple');
-insert into Arte (ID_Arte, Nombre) values (48, 'Mauv');
-insert into Arte (ID_Arte, Nombre) values (49, 'Pink');
-insert into Arte (ID_Arte, Nombre) values (50, 'Red');
-insert into Arte (ID_Arte, Nombre) values (51, 'Pink');
-insert into Arte (ID_Arte, Nombre) values (52, 'Yellow');
-insert into Arte (ID_Arte, Nombre) values (53, 'Purple');
-insert into Arte (ID_Arte, Nombre) values (54, 'Fuscia');
-insert into Arte (ID_Arte, Nombre) values (55, 'Mauv');
-insert into Arte (ID_Arte, Nombre) values (56, 'Puce');
-insert into Arte (ID_Arte, Nombre) values (57, 'Green');
-insert into Arte (ID_Arte, Nombre) values (58, 'Puce');
-insert into Arte (ID_Arte, Nombre) values (59, 'Pink');
-insert into Arte (ID_Arte, Nombre) values (60, 'Maroon');
-insert into Arte (ID_Arte, Nombre) values (61, 'Violet');
-insert into Arte (ID_Arte, Nombre) values (62, 'Maroon');
-insert into Arte (ID_Arte, Nombre) values (63, 'Orange');
-insert into Arte (ID_Arte, Nombre) values (64, 'Goldenrod');
-insert into Arte (ID_Arte, Nombre) values (65, 'Turquoise');
-insert into Arte (ID_Arte, Nombre) values (66, 'Goldenrod');
-insert into Arte (ID_Arte, Nombre) values (67, 'Violet');
-insert into Arte (ID_Arte, Nombre) values (68, 'Crimson');
-insert into Arte (ID_Arte, Nombre) values (69, 'Goldenrod');
-insert into Arte (ID_Arte, Nombre) values (70, 'Indigo');
-insert into Arte (ID_Arte, Nombre) values (71, 'Blue');
-insert into Arte (ID_Arte, Nombre) values (72, 'Fuscia');
-insert into Arte (ID_Arte, Nombre) values (73, 'Fuscia');
-insert into Arte (ID_Arte, Nombre) values (74, 'Indigo');
-insert into Arte (ID_Arte, Nombre) values (75, 'Puce');
-insert into Arte (ID_Arte, Nombre) values (76, 'Green');
-insert into Arte (ID_Arte, Nombre) values (77, 'Violet');
-insert into Arte (ID_Arte, Nombre) values (78, 'Pink');
-insert into Arte (ID_Arte, Nombre) values (79, 'Teal');
-insert into Arte (ID_Arte, Nombre) values (80, 'Violet');
-insert into Arte (ID_Arte, Nombre) values (81, 'Teal');
-insert into Arte (ID_Arte, Nombre) values (82, 'Goldenrod');
-insert into Arte (ID_Arte, Nombre) values (83, 'Green');
-insert into Arte (ID_Arte, Nombre) values (84, 'Crimson');
-insert into Arte (ID_Arte, Nombre) values (85, 'Crimson');
-insert into Arte (ID_Arte, Nombre) values (86, 'Fuscia');
-insert into Arte (ID_Arte, Nombre) values (87, 'Turquoise');
-insert into Arte (ID_Arte, Nombre) values (88, 'Green');
-insert into Arte (ID_Arte, Nombre) values (89, 'Green');
-insert into Arte (ID_Arte, Nombre) values (90, 'Orange');
-insert into Arte (ID_Arte, Nombre) values (91, 'Green');
-insert into Arte (ID_Arte, Nombre) values (92, 'Purple');
-insert into Arte (ID_Arte, Nombre) values (93, 'Aquamarine');
-insert into Arte (ID_Arte, Nombre) values (94, 'Blue');
-insert into Arte (ID_Arte, Nombre) values (95, 'Violet');
-insert into Arte (ID_Arte, Nombre) values (96, 'Blue');
-insert into Arte (ID_Arte, Nombre) values (97, 'Purple');
-insert into Arte (ID_Arte, Nombre) values (98, 'Crimson');
-insert into Arte (ID_Arte, Nombre) values (99, 'Yellow');
-insert into Arte (ID_Arte, Nombre) values (100, 'Aquamarine');
-insert into Arte (ID_Arte, Nombre) values (101, 'Khaki');
-insert into Arte (ID_Arte, Nombre) values (102, 'Puce');
-insert into Arte (ID_Arte, Nombre) values (103, 'Maroon');
-insert into Arte (ID_Arte, Nombre) values (104, 'Turquoise');
-insert into Arte (ID_Arte, Nombre) values (105, 'Fuscia');
-insert into Arte (ID_Arte, Nombre) values (106, 'Green');
-insert into Arte (ID_Arte, Nombre) values (107, 'Red');
-insert into Arte (ID_Arte, Nombre) values (108, 'Teal');
-insert into Arte (ID_Arte, Nombre) values (109, 'Mauv');
-insert into Arte (ID_Arte, Nombre) values (110, 'Goldenrod');
-insert into Arte (ID_Arte, Nombre) values (111, 'Teal');
-insert into Arte (ID_Arte, Nombre) values (112, 'Teal');
-insert into Arte (ID_Arte, Nombre) values (113, 'Red');
-insert into Arte (ID_Arte, Nombre) values (114, 'Pink');
-insert into Arte (ID_Arte, Nombre) values (115, 'Mauv');
-insert into Arte (ID_Arte, Nombre) values (116, 'Teal');
-insert into Arte (ID_Arte, Nombre) values (117, 'Green');
-insert into Arte (ID_Arte, Nombre) values (118, 'Teal');
-insert into Arte (ID_Arte, Nombre) values (119, 'Blue');
-insert into Arte (ID_Arte, Nombre) values (120, 'Puce');
-insert into Arte (ID_Arte, Nombre) values (121, 'Teal');
-insert into Arte (ID_Arte, Nombre) values (122, 'Indigo');
-insert into Arte (ID_Arte, Nombre) values (123, 'Yellow');
-insert into Arte (ID_Arte, Nombre) values (124, 'Purple');
-insert into Arte (ID_Arte, Nombre) values (125, 'Crimson');
-insert into Arte (ID_Arte, Nombre) values (126, 'Turquoise');
-insert into Arte (ID_Arte, Nombre) values (127, 'Fuscia');
-insert into Arte (ID_Arte, Nombre) values (128, 'Blue');
-insert into Arte (ID_Arte, Nombre) values (129, 'Teal');
-insert into Arte (ID_Arte, Nombre) values (130, 'Goldenrod');
-insert into Arte (ID_Arte, Nombre) values (131, 'Indigo');
-insert into Arte (ID_Arte, Nombre) values (132, 'Pink');
-insert into Arte (ID_Arte, Nombre) values (133, 'Indigo');
-insert into Arte (ID_Arte, Nombre) values (134, 'Goldenrod');
-insert into Arte (ID_Arte, Nombre) values (135, 'Khaki');
-insert into Arte (ID_Arte, Nombre) values (136, 'Purple');
-insert into Arte (ID_Arte, Nombre) values (137, 'Green');
-insert into Arte (ID_Arte, Nombre) values (138, 'Puce');
-insert into Arte (ID_Arte, Nombre) values (139, 'Goldenrod');
-insert into Arte (ID_Arte, Nombre) values (140, 'Goldenrod');
-insert into Arte (ID_Arte, Nombre) values (141, 'Purple');
-insert into Arte (ID_Arte, Nombre) values (142, 'Mauv');
-insert into Arte (ID_Arte, Nombre) values (143, 'Indigo');
-insert into Arte (ID_Arte, Nombre) values (144, 'Indigo');
-insert into Arte (ID_Arte, Nombre) values (145, 'Yellow');
-insert into Arte (ID_Arte, Nombre) values (146, 'Fuscia');
-insert into Arte (ID_Arte, Nombre) values (147, 'Green');
-insert into Arte (ID_Arte, Nombre) values (148, 'Khaki');
-insert into Arte (ID_Arte, Nombre) values (149, 'Blue');
-insert into Arte (ID_Arte, Nombre) values (150, 'Goldenrod');
-insert into Arte (ID_Arte, Nombre) values (151, 'Turquoise');
-insert into Arte (ID_Arte, Nombre) values (152, 'Pink');
-insert into Arte (ID_Arte, Nombre) values (153, 'Crimson');
-insert into Arte (ID_Arte, Nombre) values (154, 'Red');
-insert into Arte (ID_Arte, Nombre) values (155, 'Goldenrod');
-insert into Arte (ID_Arte, Nombre) values (156, 'Green');
-insert into Arte (ID_Arte, Nombre) values (157, 'Purple');
-insert into Arte (ID_Arte, Nombre) values (158, 'Yellow');
-insert into Arte (ID_Arte, Nombre) values (159, 'Goldenrod');
-insert into Arte (ID_Arte, Nombre) values (160, 'Mauv');
-insert into Arte (ID_Arte, Nombre) values (161, 'Green');
-insert into Arte (ID_Arte, Nombre) values (162, 'Teal');
-insert into Arte (ID_Arte, Nombre) values (163, 'Yellow');
-insert into Arte (ID_Arte, Nombre) values (164, 'Goldenrod');
-insert into Arte (ID_Arte, Nombre) values (165, 'Turquoise');
-insert into Arte (ID_Arte, Nombre) values (166, 'Crimson');
-insert into Arte (ID_Arte, Nombre) values (167, 'Crimson');
-insert into Arte (ID_Arte, Nombre) values (168, 'Pink');
-insert into Arte (ID_Arte, Nombre) values (169, 'Fuscia');
-insert into Arte (ID_Arte, Nombre) values (170, 'Mauv');
-insert into Arte (ID_Arte, Nombre) values (171, 'Puce');
-insert into Arte (ID_Arte, Nombre) values (172, 'Purple');
-insert into Arte (ID_Arte, Nombre) values (173, 'Blue');
-insert into Arte (ID_Arte, Nombre) values (174, 'Teal');
-insert into Arte (ID_Arte, Nombre) values (175, 'Khaki');
-insert into Arte (ID_Arte, Nombre) values (176, 'Blue');
-insert into Arte (ID_Arte, Nombre) values (177, 'Khaki');
-insert into Arte (ID_Arte, Nombre) values (178, 'Blue');
-insert into Arte (ID_Arte, Nombre) values (179, 'Orange');
-insert into Arte (ID_Arte, Nombre) values (180, 'Puce');
-insert into Arte (ID_Arte, Nombre) values (181, 'Maroon');
-insert into Arte (ID_Arte, Nombre) values (182, 'Red');
-insert into Arte (ID_Arte, Nombre) values (183, 'Fuscia');
-insert into Arte (ID_Arte, Nombre) values (184, 'Turquoise');
-insert into Arte (ID_Arte, Nombre) values (185, 'Pink');
-insert into Arte (ID_Arte, Nombre) values (186, 'Aquamarine');
-insert into Arte (ID_Arte, Nombre) values (187, 'Green');
-insert into Arte (ID_Arte, Nombre) values (188, 'Red');
-insert into Arte (ID_Arte, Nombre) values (189, 'Red');
-insert into Arte (ID_Arte, Nombre) values (190, 'Pink');
-insert into Arte (ID_Arte, Nombre) values (191, 'Green');
-insert into Arte (ID_Arte, Nombre) values (192, 'Green');
-insert into Arte (ID_Arte, Nombre) values (193, 'Maroon');
-insert into Arte (ID_Arte, Nombre) values (194, 'Purple');
-insert into Arte (ID_Arte, Nombre) values (195, 'Turquoise');
-insert into Arte (ID_Arte, Nombre) values (196, 'Aquamarine');
-insert into Arte (ID_Arte, Nombre) values (197, 'Teal');
-insert into Arte (ID_Arte, Nombre) values (198, 'Turquoise');
-insert into Arte (ID_Arte, Nombre) values (199, 'Mauv');
-insert into Arte (ID_Arte, Nombre) values (200, 'Green');
-insert into Arte (ID_Arte, Nombre) values (201, 'Khaki');
-insert into Arte (ID_Arte, Nombre) values (202, 'Pink');
-insert into Arte (ID_Arte, Nombre) values (203, 'Pink');
-insert into Arte (ID_Arte, Nombre) values (204, 'Purple');
-insert into Arte (ID_Arte, Nombre) values (205, 'Puce');
-insert into Arte (ID_Arte, Nombre) values (206, 'Aquamarine');
-insert into Arte (ID_Arte, Nombre) values (207, 'Blue');
-insert into Arte (ID_Arte, Nombre) values (208, 'Orange');
-insert into Arte (ID_Arte, Nombre) values (209, 'Blue');
-insert into Arte (ID_Arte, Nombre) values (210, 'Puce');
-insert into Arte (ID_Arte, Nombre) values (211, 'Puce');
-insert into Arte (ID_Arte, Nombre) values (212, 'Fuscia');
-insert into Arte (ID_Arte, Nombre) values (213, 'Pink');
-insert into Arte (ID_Arte, Nombre) values (214, 'Crimson');
-insert into Arte (ID_Arte, Nombre) values (215, 'Blue');
-insert into Arte (ID_Arte, Nombre) values (216, 'Aquamarine');
-insert into Arte (ID_Arte, Nombre) values (217, 'Green');
-insert into Arte (ID_Arte, Nombre) values (218, 'Pink');
-insert into Arte (ID_Arte, Nombre) values (219, 'Indigo');
-insert into Arte (ID_Arte, Nombre) values (220, 'Violet');
-insert into Arte (ID_Arte, Nombre) values (221, 'Aquamarine');
-insert into Arte (ID_Arte, Nombre) values (222, 'Puce');
-insert into Arte (ID_Arte, Nombre) values (223, 'Blue');
-insert into Arte (ID_Arte, Nombre) values (224, 'Violet');
-insert into Arte (ID_Arte, Nombre) values (225, 'Crimson');
-insert into Arte (ID_Arte, Nombre) values (226, 'Turquoise');
-insert into Arte (ID_Arte, Nombre) values (227, 'Violet');
-insert into Arte (ID_Arte, Nombre) values (228, 'Purple');
-insert into Arte (ID_Arte, Nombre) values (229, 'Pink');
-insert into Arte (ID_Arte, Nombre) values (230, 'Red');
-insert into Arte (ID_Arte, Nombre) values (231, 'Teal');
-insert into Arte (ID_Arte, Nombre) values (232, 'Puce');
-insert into Arte (ID_Arte, Nombre) values (233, 'Red');
-insert into Arte (ID_Arte, Nombre) values (234, 'Red');
-insert into Arte (ID_Arte, Nombre) values (235, 'Yellow');
-insert into Arte (ID_Arte, Nombre) values (236, 'Orange');
-insert into Arte (ID_Arte, Nombre) values (237, 'Aquamarine');
-insert into Arte (ID_Arte, Nombre) values (238, 'Orange');
-insert into Arte (ID_Arte, Nombre) values (239, 'Puce');
-insert into Arte (ID_Arte, Nombre) values (240, 'Mauv');
-insert into Arte (ID_Arte, Nombre) values (241, 'Crimson');
-insert into Arte (ID_Arte, Nombre) values (242, 'Purple');
-insert into Arte (ID_Arte, Nombre) values (243, 'Teal');
-insert into Arte (ID_Arte, Nombre) values (244, 'Turquoise');
-insert into Arte (ID_Arte, Nombre) values (245, 'Violet');
-insert into Arte (ID_Arte, Nombre) values (246, 'Aquamarine');
-insert into Arte (ID_Arte, Nombre) values (247, 'Fuscia');
-insert into Arte (ID_Arte, Nombre) values (248, 'Fuscia');
-insert into Arte (ID_Arte, Nombre) values (249, 'Crimson');
-insert into Arte (ID_Arte, Nombre) values (250, 'Crimson');
-insert into Arte (ID_Arte, Nombre) values (251, 'Violet');
-insert into Arte (ID_Arte, Nombre) values (252, 'Puce');
-insert into Arte (ID_Arte, Nombre) values (253, 'Fuscia');
-insert into Arte (ID_Arte, Nombre) values (254, 'Violet');
-insert into Arte (ID_Arte, Nombre) values (255, 'Red');
-insert into Arte (ID_Arte, Nombre) values (256, 'Maroon');
-insert into Arte (ID_Arte, Nombre) values (257, 'Green');
-insert into Arte (ID_Arte, Nombre) values (258, 'Violet');
-insert into Arte (ID_Arte, Nombre) values (259, 'Puce');
-insert into Arte (ID_Arte, Nombre) values (260, 'Purple');
-insert into Arte (ID_Arte, Nombre) values (261, 'Fuscia');
-insert into Arte (ID_Arte, Nombre) values (262, 'Aquamarine');
-insert into Arte (ID_Arte, Nombre) values (263, 'Puce');
-insert into Arte (ID_Arte, Nombre) values (264, 'Orange');
-insert into Arte (ID_Arte, Nombre) values (265, 'Khaki');
-insert into Arte (ID_Arte, Nombre) values (266, 'Goldenrod');
-insert into Arte (ID_Arte, Nombre) values (267, 'Puce');
-insert into Arte (ID_Arte, Nombre) values (268, 'Yellow');
-insert into Arte (ID_Arte, Nombre) values (269, 'Indigo');
-insert into Arte (ID_Arte, Nombre) values (270, 'Pink');
-insert into Arte (ID_Arte, Nombre) values (271, 'Crimson');
-insert into Arte (ID_Arte, Nombre) values (272, 'Fuscia');
-insert into Arte (ID_Arte, Nombre) values (273, 'Orange');
-insert into Arte (ID_Arte, Nombre) values (274, 'Yellow');
-insert into Arte (ID_Arte, Nombre) values (275, 'Indigo');
-insert into Arte (ID_Arte, Nombre) values (276, 'Goldenrod');
-insert into Arte (ID_Arte, Nombre) values (277, 'Red');
-insert into Arte (ID_Arte, Nombre) values (278, 'Crimson');
-insert into Arte (ID_Arte, Nombre) values (279, 'Pink');
-insert into Arte (ID_Arte, Nombre) values (280, 'Crimson');
-insert into Arte (ID_Arte, Nombre) values (281, 'Maroon');
-insert into Arte (ID_Arte, Nombre) values (282, 'Pink');
-insert into Arte (ID_Arte, Nombre) values (283, 'Teal');
-insert into Arte (ID_Arte, Nombre) values (284, 'Blue');
-insert into Arte (ID_Arte, Nombre) values (285, 'Crimson');
-insert into Arte (ID_Arte, Nombre) values (286, 'Violet');
-insert into Arte (ID_Arte, Nombre) values (287, 'Crimson');
-insert into Arte (ID_Arte, Nombre) values (288, 'Maroon');
-insert into Arte (ID_Arte, Nombre) values (289, 'Crimson');
-insert into Arte (ID_Arte, Nombre) values (290, 'Goldenrod');
-insert into Arte (ID_Arte, Nombre) values (291, 'Green');
-insert into Arte (ID_Arte, Nombre) values (292, 'Red');
-insert into Arte (ID_Arte, Nombre) values (293, 'Red');
-insert into Arte (ID_Arte, Nombre) values (294, 'Turquoise');
-insert into Arte (ID_Arte, Nombre) values (295, 'Orange');
-insert into Arte (ID_Arte, Nombre) values (296, 'Pink');
-insert into Arte (ID_Arte, Nombre) values (297, 'Mauv');
-insert into Arte (ID_Arte, Nombre) values (298, 'Blue');
-insert into Arte (ID_Arte, Nombre) values (299, 'Puce');
-insert into Arte (ID_Arte, Nombre) values (300, 'Turquoise');
+-- insercion en Academia.Artes
+insert into Academia.Arte (ID_Arte, Nombre) values (1, 'Pintura');
+insert into Academia.Arte (ID_Arte, Nombre) values (2, 'Danza');
+insert into Academia.Arte (ID_Arte, Nombre) values (3, 'Arquitectura');
+insert into Academia.Arte (ID_Arte, Nombre) values (4, 'Musica');
+insert into Academia.Arte (ID_Arte, Nombre) values (5, 'Literatura');
+insert into Academia.Arte (ID_Arte, Nombre) values (6, 'Cine');
+insert into Academia.Arte (ID_Arte, Nombre) values (7, 'Escultura');
+insert into Academia.Arte (ID_Arte, Nombre) values (8, 'Fotografia');
+insert into Academia.Arte (ID_Arte, Nombre) values (9, 'Opera');
+insert into Academia.Arte (ID_Arte, Nombre) values (10, 'Teatro');
+insert into Academia.Arte (ID_Arte, Nombre) values (11, 'Mauv');
+insert into Academia.Arte (ID_Arte, Nombre) values (12, 'Puce');
+insert into Academia.Arte (ID_Arte, Nombre) values (13, 'Indigo');
+insert into Academia.Arte (ID_Arte, Nombre) values (14, 'Aquamarine');
+insert into Academia.Arte (ID_Arte, Nombre) values (15, 'Maroon');
+insert into Academia.Arte (ID_Arte, Nombre) values (16, 'Aquamarine');
+insert into Academia.Arte (ID_Arte, Nombre) values (17, 'Turquoise');
+insert into Academia.Arte (ID_Arte, Nombre) values (18, 'Red');
+insert into Academia.Arte (ID_Arte, Nombre) values (19, 'Indigo');
+insert into Academia.Arte (ID_Arte, Nombre) values (20, 'Aquamarine');
+insert into Academia.Arte (ID_Arte, Nombre) values (21, 'Blue');
+insert into Academia.Arte (ID_Arte, Nombre) values (22, 'Red');
+insert into Academia.Arte (ID_Arte, Nombre) values (23, 'Violet');
+insert into Academia.Arte (ID_Arte, Nombre) values (24, 'Turquoise');
+insert into Academia.Arte (ID_Arte, Nombre) values (25, 'Goldenrod');
+insert into Academia.Arte (ID_Arte, Nombre) values (26, 'Maroon');
+insert into Academia.Arte (ID_Arte, Nombre) values (27, 'Khaki');
+insert into Academia.Arte (ID_Arte, Nombre) values (28, 'Pink');
+insert into Academia.Arte (ID_Arte, Nombre) values (29, 'Goldenrod');
+insert into Academia.Arte (ID_Arte, Nombre) values (30, 'Green');
+insert into Academia.Arte (ID_Arte, Nombre) values (31, 'Teal');
+insert into Academia.Arte (ID_Arte, Nombre) values (32, 'Crimson');
+insert into Academia.Arte (ID_Arte, Nombre) values (33, 'Orange');
+insert into Academia.Arte (ID_Arte, Nombre) values (34, 'Purple');
+insert into Academia.Arte (ID_Arte, Nombre) values (35, 'Fuscia');
+insert into Academia.Arte (ID_Arte, Nombre) values (36, 'Purple');
+insert into Academia.Arte (ID_Arte, Nombre) values (37, 'Violet');
+insert into Academia.Arte (ID_Arte, Nombre) values (38, 'Maroon');
+insert into Academia.Arte (ID_Arte, Nombre) values (39, 'Pink');
+insert into Academia.Arte (ID_Arte, Nombre) values (40, 'Turquoise');
+insert into Academia.Arte (ID_Arte, Nombre) values (41, 'Indigo');
+insert into Academia.Arte (ID_Arte, Nombre) values (42, 'Goldenrod');
+insert into Academia.Arte (ID_Arte, Nombre) values (43, 'Pink');
+insert into Academia.Arte (ID_Arte, Nombre) values (44, 'Orange');
+insert into Academia.Arte (ID_Arte, Nombre) values (45, 'Goldenrod');
+insert into Academia.Arte (ID_Arte, Nombre) values (46, 'Khaki');
+insert into Academia.Arte (ID_Arte, Nombre) values (47, 'Purple');
+insert into Academia.Arte (ID_Arte, Nombre) values (48, 'Mauv');
+insert into Academia.Arte (ID_Arte, Nombre) values (49, 'Pink');
+insert into Academia.Arte (ID_Arte, Nombre) values (50, 'Red');
+insert into Academia.Arte (ID_Arte, Nombre) values (51, 'Pink');
+insert into Academia.Arte (ID_Arte, Nombre) values (52, 'Yellow');
+insert into Academia.Arte (ID_Arte, Nombre) values (53, 'Purple');
+insert into Academia.Arte (ID_Arte, Nombre) values (54, 'Fuscia');
+insert into Academia.Arte (ID_Arte, Nombre) values (55, 'Mauv');
+insert into Academia.Arte (ID_Arte, Nombre) values (56, 'Puce');
+insert into Academia.Arte (ID_Arte, Nombre) values (57, 'Green');
+insert into Academia.Arte (ID_Arte, Nombre) values (58, 'Puce');
+insert into Academia.Arte (ID_Arte, Nombre) values (59, 'Pink');
+insert into Academia.Arte (ID_Arte, Nombre) values (60, 'Maroon');
+insert into Academia.Arte (ID_Arte, Nombre) values (61, 'Violet');
+insert into Academia.Arte (ID_Arte, Nombre) values (62, 'Maroon');
+insert into Academia.Arte (ID_Arte, Nombre) values (63, 'Orange');
+insert into Academia.Arte (ID_Arte, Nombre) values (64, 'Goldenrod');
+insert into Academia.Arte (ID_Arte, Nombre) values (65, 'Turquoise');
+insert into Academia.Arte (ID_Arte, Nombre) values (66, 'Goldenrod');
+insert into Academia.Arte (ID_Arte, Nombre) values (67, 'Violet');
+insert into Academia.Arte (ID_Arte, Nombre) values (68, 'Crimson');
+insert into Academia.Arte (ID_Arte, Nombre) values (69, 'Goldenrod');
+insert into Academia.Arte (ID_Arte, Nombre) values (70, 'Indigo');
+insert into Academia.Arte (ID_Arte, Nombre) values (71, 'Blue');
+insert into Academia.Arte (ID_Arte, Nombre) values (72, 'Fuscia');
+insert into Academia.Arte (ID_Arte, Nombre) values (73, 'Fuscia');
+insert into Academia.Arte (ID_Arte, Nombre) values (74, 'Indigo');
+insert into Academia.Arte (ID_Arte, Nombre) values (75, 'Puce');
+insert into Academia.Arte (ID_Arte, Nombre) values (76, 'Green');
+insert into Academia.Arte (ID_Arte, Nombre) values (77, 'Violet');
+insert into Academia.Arte (ID_Arte, Nombre) values (78, 'Pink');
+insert into Academia.Arte (ID_Arte, Nombre) values (79, 'Teal');
+insert into Academia.Arte (ID_Arte, Nombre) values (80, 'Violet');
+insert into Academia.Arte (ID_Arte, Nombre) values (81, 'Teal');
+insert into Academia.Arte (ID_Arte, Nombre) values (82, 'Goldenrod');
+insert into Academia.Arte (ID_Arte, Nombre) values (83, 'Green');
+insert into Academia.Arte (ID_Arte, Nombre) values (84, 'Crimson');
+insert into Academia.Arte (ID_Arte, Nombre) values (85, 'Crimson');
+insert into Academia.Arte (ID_Arte, Nombre) values (86, 'Fuscia');
+insert into Academia.Arte (ID_Arte, Nombre) values (87, 'Turquoise');
+insert into Academia.Arte (ID_Arte, Nombre) values (88, 'Green');
+insert into Academia.Arte (ID_Arte, Nombre) values (89, 'Green');
+insert into Academia.Arte (ID_Arte, Nombre) values (90, 'Orange');
+insert into Academia.Arte (ID_Arte, Nombre) values (91, 'Green');
+insert into Academia.Arte (ID_Arte, Nombre) values (92, 'Purple');
+insert into Academia.Arte (ID_Arte, Nombre) values (93, 'Aquamarine');
+insert into Academia.Arte (ID_Arte, Nombre) values (94, 'Blue');
+insert into Academia.Arte (ID_Arte, Nombre) values (95, 'Violet');
+insert into Academia.Arte (ID_Arte, Nombre) values (96, 'Blue');
+insert into Academia.Arte (ID_Arte, Nombre) values (97, 'Purple');
+insert into Academia.Arte (ID_Arte, Nombre) values (98, 'Crimson');
+insert into Academia.Arte (ID_Arte, Nombre) values (99, 'Yellow');
+insert into Academia.Arte (ID_Arte, Nombre) values (100, 'Aquamarine');
+insert into Academia.Arte (ID_Arte, Nombre) values (101, 'Khaki');
+insert into Academia.Arte (ID_Arte, Nombre) values (102, 'Puce');
+insert into Academia.Arte (ID_Arte, Nombre) values (103, 'Maroon');
+insert into Academia.Arte (ID_Arte, Nombre) values (104, 'Turquoise');
+insert into Academia.Arte (ID_Arte, Nombre) values (105, 'Fuscia');
+insert into Academia.Arte (ID_Arte, Nombre) values (106, 'Green');
+insert into Academia.Arte (ID_Arte, Nombre) values (107, 'Red');
+insert into Academia.Arte (ID_Arte, Nombre) values (108, 'Teal');
+insert into Academia.Arte (ID_Arte, Nombre) values (109, 'Mauv');
+insert into Academia.Arte (ID_Arte, Nombre) values (110, 'Goldenrod');
+insert into Academia.Arte (ID_Arte, Nombre) values (111, 'Teal');
+insert into Academia.Arte (ID_Arte, Nombre) values (112, 'Teal');
+insert into Academia.Arte (ID_Arte, Nombre) values (113, 'Red');
+insert into Academia.Arte (ID_Arte, Nombre) values (114, 'Pink');
+insert into Academia.Arte (ID_Arte, Nombre) values (115, 'Mauv');
+insert into Academia.Arte (ID_Arte, Nombre) values (116, 'Teal');
+insert into Academia.Arte (ID_Arte, Nombre) values (117, 'Green');
+insert into Academia.Arte (ID_Arte, Nombre) values (118, 'Teal');
+insert into Academia.Arte (ID_Arte, Nombre) values (119, 'Blue');
+insert into Academia.Arte (ID_Arte, Nombre) values (120, 'Puce');
+insert into Academia.Arte (ID_Arte, Nombre) values (121, 'Teal');
+insert into Academia.Arte (ID_Arte, Nombre) values (122, 'Indigo');
+insert into Academia.Arte (ID_Arte, Nombre) values (123, 'Yellow');
+insert into Academia.Arte (ID_Arte, Nombre) values (124, 'Purple');
+insert into Academia.Arte (ID_Arte, Nombre) values (125, 'Crimson');
+insert into Academia.Arte (ID_Arte, Nombre) values (126, 'Turquoise');
+insert into Academia.Arte (ID_Arte, Nombre) values (127, 'Fuscia');
+insert into Academia.Arte (ID_Arte, Nombre) values (128, 'Blue');
+insert into Academia.Arte (ID_Arte, Nombre) values (129, 'Teal');
+insert into Academia.Arte (ID_Arte, Nombre) values (130, 'Goldenrod');
+insert into Academia.Arte (ID_Arte, Nombre) values (131, 'Indigo');
+insert into Academia.Arte (ID_Arte, Nombre) values (132, 'Pink');
+insert into Academia.Arte (ID_Arte, Nombre) values (133, 'Indigo');
+insert into Academia.Arte (ID_Arte, Nombre) values (134, 'Goldenrod');
+insert into Academia.Arte (ID_Arte, Nombre) values (135, 'Khaki');
+insert into Academia.Arte (ID_Arte, Nombre) values (136, 'Purple');
+insert into Academia.Arte (ID_Arte, Nombre) values (137, 'Green');
+insert into Academia.Arte (ID_Arte, Nombre) values (138, 'Puce');
+insert into Academia.Arte (ID_Arte, Nombre) values (139, 'Goldenrod');
+insert into Academia.Arte (ID_Arte, Nombre) values (140, 'Goldenrod');
+insert into Academia.Arte (ID_Arte, Nombre) values (141, 'Purple');
+insert into Academia.Arte (ID_Arte, Nombre) values (142, 'Mauv');
+insert into Academia.Arte (ID_Arte, Nombre) values (143, 'Indigo');
+insert into Academia.Arte (ID_Arte, Nombre) values (144, 'Indigo');
+insert into Academia.Arte (ID_Arte, Nombre) values (145, 'Yellow');
+insert into Academia.Arte (ID_Arte, Nombre) values (146, 'Fuscia');
+insert into Academia.Arte (ID_Arte, Nombre) values (147, 'Green');
+insert into Academia.Arte (ID_Arte, Nombre) values (148, 'Khaki');
+insert into Academia.Arte (ID_Arte, Nombre) values (149, 'Blue');
+insert into Academia.Arte (ID_Arte, Nombre) values (150, 'Goldenrod');
+insert into Academia.Arte (ID_Arte, Nombre) values (151, 'Turquoise');
+insert into Academia.Arte (ID_Arte, Nombre) values (152, 'Pink');
+insert into Academia.Arte (ID_Arte, Nombre) values (153, 'Crimson');
+insert into Academia.Arte (ID_Arte, Nombre) values (154, 'Red');
+insert into Academia.Arte (ID_Arte, Nombre) values (155, 'Goldenrod');
+insert into Academia.Arte (ID_Arte, Nombre) values (156, 'Green');
+insert into Academia.Arte (ID_Arte, Nombre) values (157, 'Purple');
+insert into Academia.Arte (ID_Arte, Nombre) values (158, 'Yellow');
+insert into Academia.Arte (ID_Arte, Nombre) values (159, 'Goldenrod');
+insert into Academia.Arte (ID_Arte, Nombre) values (160, 'Mauv');
+insert into Academia.Arte (ID_Arte, Nombre) values (161, 'Green');
+insert into Academia.Arte (ID_Arte, Nombre) values (162, 'Teal');
+insert into Academia.Arte (ID_Arte, Nombre) values (163, 'Yellow');
+insert into Academia.Arte (ID_Arte, Nombre) values (164, 'Goldenrod');
+insert into Academia.Arte (ID_Arte, Nombre) values (165, 'Turquoise');
+insert into Academia.Arte (ID_Arte, Nombre) values (166, 'Crimson');
+insert into Academia.Arte (ID_Arte, Nombre) values (167, 'Crimson');
+insert into Academia.Arte (ID_Arte, Nombre) values (168, 'Pink');
+insert into Academia.Arte (ID_Arte, Nombre) values (169, 'Fuscia');
+insert into Academia.Arte (ID_Arte, Nombre) values (170, 'Mauv');
+insert into Academia.Arte (ID_Arte, Nombre) values (171, 'Puce');
+insert into Academia.Arte (ID_Arte, Nombre) values (172, 'Purple');
+insert into Academia.Arte (ID_Arte, Nombre) values (173, 'Blue');
+insert into Academia.Arte (ID_Arte, Nombre) values (174, 'Teal');
+insert into Academia.Arte (ID_Arte, Nombre) values (175, 'Khaki');
+insert into Academia.Arte (ID_Arte, Nombre) values (176, 'Blue');
+insert into Academia.Arte (ID_Arte, Nombre) values (177, 'Khaki');
+insert into Academia.Arte (ID_Arte, Nombre) values (178, 'Blue');
+insert into Academia.Arte (ID_Arte, Nombre) values (179, 'Orange');
+insert into Academia.Arte (ID_Arte, Nombre) values (180, 'Puce');
+insert into Academia.Arte (ID_Arte, Nombre) values (181, 'Maroon');
+insert into Academia.Arte (ID_Arte, Nombre) values (182, 'Red');
+insert into Academia.Arte (ID_Arte, Nombre) values (183, 'Fuscia');
+insert into Academia.Arte (ID_Arte, Nombre) values (184, 'Turquoise');
+insert into Academia.Arte (ID_Arte, Nombre) values (185, 'Pink');
+insert into Academia.Arte (ID_Arte, Nombre) values (186, 'Aquamarine');
+insert into Academia.Arte (ID_Arte, Nombre) values (187, 'Green');
+insert into Academia.Arte (ID_Arte, Nombre) values (188, 'Red');
+insert into Academia.Arte (ID_Arte, Nombre) values (189, 'Red');
+insert into Academia.Arte (ID_Arte, Nombre) values (190, 'Pink');
+insert into Academia.Arte (ID_Arte, Nombre) values (191, 'Green');
+insert into Academia.Arte (ID_Arte, Nombre) values (192, 'Green');
+insert into Academia.Arte (ID_Arte, Nombre) values (193, 'Maroon');
+insert into Academia.Arte (ID_Arte, Nombre) values (194, 'Purple');
+insert into Academia.Arte (ID_Arte, Nombre) values (195, 'Turquoise');
+insert into Academia.Arte (ID_Arte, Nombre) values (196, 'Aquamarine');
+insert into Academia.Arte (ID_Arte, Nombre) values (197, 'Teal');
+insert into Academia.Arte (ID_Arte, Nombre) values (198, 'Turquoise');
+insert into Academia.Arte (ID_Arte, Nombre) values (199, 'Mauv');
+insert into Academia.Arte (ID_Arte, Nombre) values (200, 'Green');
+insert into Academia.Arte (ID_Arte, Nombre) values (201, 'Khaki');
+insert into Academia.Arte (ID_Arte, Nombre) values (202, 'Pink');
+insert into Academia.Arte (ID_Arte, Nombre) values (203, 'Pink');
+insert into Academia.Arte (ID_Arte, Nombre) values (204, 'Purple');
+insert into Academia.Arte (ID_Arte, Nombre) values (205, 'Puce');
+insert into Academia.Arte (ID_Arte, Nombre) values (206, 'Aquamarine');
+insert into Academia.Arte (ID_Arte, Nombre) values (207, 'Blue');
+insert into Academia.Arte (ID_Arte, Nombre) values (208, 'Orange');
+insert into Academia.Arte (ID_Arte, Nombre) values (209, 'Blue');
+insert into Academia.Arte (ID_Arte, Nombre) values (210, 'Puce');
+insert into Academia.Arte (ID_Arte, Nombre) values (211, 'Puce');
+insert into Academia.Arte (ID_Arte, Nombre) values (212, 'Fuscia');
+insert into Academia.Arte (ID_Arte, Nombre) values (213, 'Pink');
+insert into Academia.Arte (ID_Arte, Nombre) values (214, 'Crimson');
+insert into Academia.Arte (ID_Arte, Nombre) values (215, 'Blue');
+insert into Academia.Arte (ID_Arte, Nombre) values (216, 'Aquamarine');
+insert into Academia.Arte (ID_Arte, Nombre) values (217, 'Green');
+insert into Academia.Arte (ID_Arte, Nombre) values (218, 'Pink');
+insert into Academia.Arte (ID_Arte, Nombre) values (219, 'Indigo');
+insert into Academia.Arte (ID_Arte, Nombre) values (220, 'Violet');
+insert into Academia.Arte (ID_Arte, Nombre) values (221, 'Aquamarine');
+insert into Academia.Arte (ID_Arte, Nombre) values (222, 'Puce');
+insert into Academia.Arte (ID_Arte, Nombre) values (223, 'Blue');
+insert into Academia.Arte (ID_Arte, Nombre) values (224, 'Violet');
+insert into Academia.Arte (ID_Arte, Nombre) values (225, 'Crimson');
+insert into Academia.Arte (ID_Arte, Nombre) values (226, 'Turquoise');
+insert into Academia.Arte (ID_Arte, Nombre) values (227, 'Violet');
+insert into Academia.Arte (ID_Arte, Nombre) values (228, 'Purple');
+insert into Academia.Arte (ID_Arte, Nombre) values (229, 'Pink');
+insert into Academia.Arte (ID_Arte, Nombre) values (230, 'Red');
+insert into Academia.Arte (ID_Arte, Nombre) values (231, 'Teal');
+insert into Academia.Arte (ID_Arte, Nombre) values (232, 'Puce');
+insert into Academia.Arte (ID_Arte, Nombre) values (233, 'Red');
+insert into Academia.Arte (ID_Arte, Nombre) values (234, 'Red');
+insert into Academia.Arte (ID_Arte, Nombre) values (235, 'Yellow');
+insert into Academia.Arte (ID_Arte, Nombre) values (236, 'Orange');
+insert into Academia.Arte (ID_Arte, Nombre) values (237, 'Aquamarine');
+insert into Academia.Arte (ID_Arte, Nombre) values (238, 'Orange');
+insert into Academia.Arte (ID_Arte, Nombre) values (239, 'Puce');
+insert into Academia.Arte (ID_Arte, Nombre) values (240, 'Mauv');
+insert into Academia.Arte (ID_Arte, Nombre) values (241, 'Crimson');
+insert into Academia.Arte (ID_Arte, Nombre) values (242, 'Purple');
+insert into Academia.Arte (ID_Arte, Nombre) values (243, 'Teal');
+insert into Academia.Arte (ID_Arte, Nombre) values (244, 'Turquoise');
+insert into Academia.Arte (ID_Arte, Nombre) values (245, 'Violet');
+insert into Academia.Arte (ID_Arte, Nombre) values (246, 'Aquamarine');
+insert into Academia.Arte (ID_Arte, Nombre) values (247, 'Fuscia');
+insert into Academia.Arte (ID_Arte, Nombre) values (248, 'Fuscia');
+insert into Academia.Arte (ID_Arte, Nombre) values (249, 'Crimson');
+insert into Academia.Arte (ID_Arte, Nombre) values (250, 'Crimson');
+insert into Academia.Arte (ID_Arte, Nombre) values (251, 'Violet');
+insert into Academia.Arte (ID_Arte, Nombre) values (252, 'Puce');
+insert into Academia.Arte (ID_Arte, Nombre) values (253, 'Fuscia');
+insert into Academia.Arte (ID_Arte, Nombre) values (254, 'Violet');
+insert into Academia.Arte (ID_Arte, Nombre) values (255, 'Red');
+insert into Academia.Arte (ID_Arte, Nombre) values (256, 'Maroon');
+insert into Academia.Arte (ID_Arte, Nombre) values (257, 'Green');
+insert into Academia.Arte (ID_Arte, Nombre) values (258, 'Violet');
+insert into Academia.Arte (ID_Arte, Nombre) values (259, 'Puce');
+insert into Academia.Arte (ID_Arte, Nombre) values (260, 'Purple');
+insert into Academia.Arte (ID_Arte, Nombre) values (261, 'Fuscia');
+insert into Academia.Arte (ID_Arte, Nombre) values (262, 'Aquamarine');
+insert into Academia.Arte (ID_Arte, Nombre) values (263, 'Puce');
+insert into Academia.Arte (ID_Arte, Nombre) values (264, 'Orange');
+insert into Academia.Arte (ID_Arte, Nombre) values (265, 'Khaki');
+insert into Academia.Arte (ID_Arte, Nombre) values (266, 'Goldenrod');
+insert into Academia.Arte (ID_Arte, Nombre) values (267, 'Puce');
+insert into Academia.Arte (ID_Arte, Nombre) values (268, 'Yellow');
+insert into Academia.Arte (ID_Arte, Nombre) values (269, 'Indigo');
+insert into Academia.Arte (ID_Arte, Nombre) values (270, 'Pink');
+insert into Academia.Arte (ID_Arte, Nombre) values (271, 'Crimson');
+insert into Academia.Arte (ID_Arte, Nombre) values (272, 'Fuscia');
+insert into Academia.Arte (ID_Arte, Nombre) values (273, 'Orange');
+insert into Academia.Arte (ID_Arte, Nombre) values (274, 'Yellow');
+insert into Academia.Arte (ID_Arte, Nombre) values (275, 'Indigo');
+insert into Academia.Arte (ID_Arte, Nombre) values (276, 'Goldenrod');
+insert into Academia.Arte (ID_Arte, Nombre) values (277, 'Red');
+insert into Academia.Arte (ID_Arte, Nombre) values (278, 'Crimson');
+insert into Academia.Arte (ID_Arte, Nombre) values (279, 'Pink');
+insert into Academia.Arte (ID_Arte, Nombre) values (280, 'Crimson');
+insert into Academia.Arte (ID_Arte, Nombre) values (281, 'Maroon');
+insert into Academia.Arte (ID_Arte, Nombre) values (282, 'Pink');
+insert into Academia.Arte (ID_Arte, Nombre) values (283, 'Teal');
+insert into Academia.Arte (ID_Arte, Nombre) values (284, 'Blue');
+insert into Academia.Arte (ID_Arte, Nombre) values (285, 'Crimson');
+insert into Academia.Arte (ID_Arte, Nombre) values (286, 'Violet');
+insert into Academia.Arte (ID_Arte, Nombre) values (287, 'Crimson');
+insert into Academia.Arte (ID_Arte, Nombre) values (288, 'Maroon');
+insert into Academia.Arte (ID_Arte, Nombre) values (289, 'Crimson');
+insert into Academia.Arte (ID_Arte, Nombre) values (290, 'Goldenrod');
+insert into Academia.Arte (ID_Arte, Nombre) values (291, 'Green');
+insert into Academia.Arte (ID_Arte, Nombre) values (292, 'Red');
+insert into Academia.Arte (ID_Arte, Nombre) values (293, 'Red');
+insert into Academia.Arte (ID_Arte, Nombre) values (294, 'Turquoise');
+insert into Academia.Arte (ID_Arte, Nombre) values (295, 'Orange');
+insert into Academia.Arte (ID_Arte, Nombre) values (296, 'Pink');
+insert into Academia.Arte (ID_Arte, Nombre) values (297, 'Mauv');
+insert into Academia.Arte (ID_Arte, Nombre) values (298, 'Blue');
+insert into Academia.Arte (ID_Arte, Nombre) values (299, 'Puce');
+insert into Academia.Arte (ID_Arte, Nombre) values (300, 'Turquoise');
 
 -- insercion en Academia.Curso 
 insert into Academia.Curso (ID_Curso, Nombre, ID_Arte, ID_Profesor, Costo, Dia, Hora, ID_Aula) values (1, 'Pintura de Agua', 4, 156176699, 40000, 'Lunes', '8:00 AM', 1);
