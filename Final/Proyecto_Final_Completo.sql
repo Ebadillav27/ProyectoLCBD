@@ -19,14 +19,16 @@ CREATE SCHEMA TSE;
 GO 
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
---DROP TABLE IF EXISTS Telefonos.Telefonos_General
+
+
+DROP TABLE IF EXISTS Telefonos.Telefonos_General
 create table Telefonos.Telefonos_General (
 	Telefono		varchar(50), 
 	Cedula			varchar(50), 
 	Nombre_Cliente	varchar(50)
 )
 
---DROP TABLE IF EXISTS TSE.Distelec
+DROP TABLE IF EXISTS TSE.Distelec
 create table TSE.Distelec (
 	Codigo			varchar(50), 
 	Provincia		varchar(50), 
@@ -34,7 +36,7 @@ create table TSE.Distelec (
 	Distrito		varchar(50)
 ) 
 
---DROP TABLE IF EXISTS TSE.PADRON_COMPLETO
+DROP TABLE IF EXISTS TSE.PADRON_COMPLETO
 create table TSE.PADRON_COMPLETO (
 	cedula				varchar(50),
 	codigo_distrito		varchar(50), 
@@ -49,19 +51,20 @@ create table TSE.PADRON_COMPLETO (
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
 INSERT INTO Telefonos.Telefonos_General 
-SELECT * from [Telefonos].[dbo].[Telefonos_General]
-
+SELECT * from Telefonos_General_temp 
 
 INSERT INTO TSE.Distelec 
-SELECT * FROM [TSE].[dbo].[Distelec]
+SELECT * FROM Distelec_temp
 
 INSERT INTO TSE.PADRON_COMPLETO 
-SELECT * FROM [TSE].[dbo].[PADRON_COMPLETO]
+SELECT * FROM PADRON_COMPLETO_temp
 
 GO
 
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
+drop proc if exists TSE_COMPLETO 
+GO 
 
 create proc TSE_COMPLETO
 AS 
@@ -130,6 +133,8 @@ AS
 GO
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
+drop proc if exists Creador_Telefonos 
+GO
 create proc Creador_Telefonos 
 as 
 
@@ -156,6 +161,11 @@ update Telefonos.Telefonos_General_V2
 set Telefonos = ''
 
 --- CURSOR 
+
+
+
+
+
 DECLARE @telefono_Tabla_Vieja	varchar(50), 
 		@Cedula_Tabla_Vieja		varchar(50),
 		@Nombre					varchar(50),
@@ -207,31 +217,31 @@ DEALLOCATE cursor_telefonos
 GO
 ------------------------------------------------------------------------
 ------------------------------------------------------------------------
-*/
+ */
 DROP PROC IF EXISTS AcademiaCompleto 
 GO
 
 CREATE PROCEDURE AcademiaCompleto
  AS
 	
-		
-	--DROP TABLE IF EXISTS Academia.Presentacion
-	--DROP TABLE IF EXISTS Academia.Matriculacion   
-	--DROP TABLE IF EXISTS Academia.Factura
-	--DROP TABLE IF EXISTS Academia.Curso
-	--DROP TABLE IF EXISTS Academia.Profesor
-	--DROP TABLE IF EXISTS Academia.Administrativo      
-	--DROP TABLE IF EXISTS Academia.Estudiante	
-	--DROP TABLE IF EXISTS Academia.Aula   	
-	--DROP TABLE IF EXISTS Academia.Inventario
-	--DROP TABLE IF EXISTS Academia.Proveedor   	 	
-	--DROP TABLE IF EXISTS Academia.Tipo_Beca   
-	--DROP TABLE IF EXISTS Academia.Arte
 	
-
+DROP TABLE IF EXISTS Academia.Presentacion
+DROP TABLE IF EXISTS Academia.Matriculacion   
+DROP TABLE IF EXISTS Academia.Factura
+DROP TABLE IF EXISTS Academia.Curso
+DROP TABLE IF EXISTS Academia.Profesor
+DROP TABLE IF EXISTS Academia.Administrativo      
+DROP TABLE IF EXISTS Academia.Estudiante	
+DROP TABLE IF EXISTS Academia.Aula   	
+DROP TABLE IF EXISTS Academia.Inventario
+DROP TABLE IF EXISTS Academia.Proveedor   	 	
+DROP TABLE IF EXISTS Academia.Tipo_Beca   
+DROP TABLE IF EXISTS Academia.Arte
+	
+ 
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
-
+ 
 create table Academia.Tipo_Beca
 (--Listo
 	ID_Beca				int				not null,
@@ -251,16 +261,9 @@ create table Academia.Estudiante
 	fecha_nacimiento	date			not null, 
 	Fecha_ingreso		date			not null, 
 	ID_Beca				int				not null,
-	Cedula_TSE			int,
-	Cedula_TEL			varchar(50),
-
 	primary key(ID_Estudiante), 
-	constraint fk_tipo_beca_estudiante	foreign key(ID_Beca) references Academia.Tipo_Beca(ID_Beca),
+	constraint fk_tipo_beca_estudiante	foreign key(ID_Beca) references Academia.Tipo_Beca(ID_Beca)
 	
-	constraint fk_Cedula_TSE_estudiante foreign key(Cedula_TSE) 
-	  references TSE.Personas(Cedula),
-	constraint fk_Cedula_TEL_estudiante foreign key(Cedula_TEL) 
-	  references Telefonos.Telefonos_General_V2(Cedula) 
 )
 
 create table Academia.Profesor 
@@ -4821,3 +4824,101 @@ insert into Academia.Factura (ID_Factura , ID_Estudiante, ID_Administrativo, Fec
 insert into Academia.Factura (ID_Factura , ID_Estudiante, ID_Administrativo, Fecha_pago) values (298, 508918810, 782068660, '2017/04/03');
 insert into Academia.Factura (ID_Factura , ID_Estudiante, ID_Administrativo, Fecha_pago) values (299, 419386689, 678856177, '2017/09/15');
 insert into Academia.Factura (ID_Factura , ID_Estudiante, ID_Administrativo, Fecha_pago) values (300, 510422495, 628529970, '2016/02/02');
+
+
+drop table if exists cedulas_temp 
+create table Cedulas_temp (
+	ID_fila int IDENTITY (1,1) primary key  not null, 
+	Cedula_TSE int,
+	Cedula_E   int,
+)
+
+insert into Cedulas_temp (Cedula_TSE) select TOP (select count(*) from Academia.Estudiante) Cedula from TSE.Personas 
+
+declare @Cedula_E int, @ID_fila int = 0  
+declare cursor_PRUEBA cursor for 
+select ID_Estudiante from Academia.Estudiante 
+open cursor_prueba 
+fetch next from cursor_prueba into @Cedula_E 
+while @@FETCH_STATUS = 0 
+begin 
+	set @ID_fila += 1 
+	update Cedulas_temp 
+	set Cedula_E = @Cedula_E where ID_Fila = @ID_fila 
+
+fetch next from cursor_prueba into @Cedula_E 
+end 
+close cursor_prueba
+deallocate cursor_prueba    
+
+drop table if exists NewFactura 
+drop table if exists NewMatriculacion 
+
+select * into NewFactura from Academia.Factura
+select * into NewMatriculacion from Academia.Matriculacion
+
+delete from Academia.Factura
+delete from Academia.Matriculacion
+
+
+declare @id int, @cedula_tse_temp int, @cedula_estudiante_temp int,
+		@Nombre_temp varchar(50), @ap1_temp varchar(50), @ap2_temp varchar(50) 
+
+declare cursor_mil cursor for 
+select ID_Fila from Cedulas_temp 
+open cursor_mil 
+fetch next from cursor_mil into @id 
+while @@FETCH_STATUS = 0
+begin 
+	set @cedula_tse_temp = (Select Cedula_tse from Cedulas_temp where ID_Fila = @id) 
+	 
+	set @cedula_estudiante_temp = (select Cedula_E from Cedulas_temp where ID_fila = @id)
+
+	set @Nombre_temp = (Select Nombre from TSE.Personas where Cedula = @cedula_tse_temp)
+
+	set @ap1_temp = (Select Apellido1 from TSE.Personas where Cedula = @cedula_tse_temp)
+
+	set @ap2_temp = (Select Apellido2 from TSE.Personas where Cedula = @cedula_tse_temp)
+
+
+	UPDATE Academia.Estudiante 
+	set ID_Estudiante = @cedula_tse_temp
+	where ID_Estudiante = @cedula_estudiante_temp
+			 
+	UPDATE Academia.Estudiante 
+	set Nombre = @Nombre_temp 
+	where ID_Estudiante in (@cedula_estudiante_temp, @cedula_tse_temp)
+	  
+			 
+	UPDATE Academia.Estudiante 
+	set Apellido1 = @ap1_temp		 
+	where ID_Estudiante in (@cedula_estudiante_temp, @cedula_tse_temp)
+
+	UPDATE Academia.Estudiante 	
+	set Apellido2 = @ap2_temp 
+	where ID_Estudiante in (@cedula_estudiante_temp, @cedula_tse_temp)
+	
+	UPDATE NewMatriculacion 
+	set ID_Estudiante = @cedula_tse_temp
+	where ID_Estudiante = @cedula_estudiante_temp			
+	
+	UPDATE NewFactura 
+	set ID_Estudiante = @cedula_tse_temp
+	where ID_Estudiante = @cedula_estudiante_temp			
+	
+	fetch next from cursor_mil into @id 
+
+end 
+close cursor_mil 
+deallocate cursor_mil  
+
+
+insert into Academia.Factura 
+select * from NewFactura 
+
+insert into Academia.Matriculacion
+select * from NewMatriculacion
+
+drop table NewFactura
+drop table NewMatriculacion
+drop table Cedulas_temp 
