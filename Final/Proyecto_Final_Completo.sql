@@ -1,33 +1,35 @@
-﻿/*
-use master;
-GO
--------------------------------------------
-DROP DATABASE IF EXISTS ProyectoFinal; 
-CREATE DATABASE ProyectoFinal;
-GO
--------------------------------------------
-use ProyectoFinal; 
+﻿use ProyectoFinal; 
 GO 
 -------------------------------------------
+DROP SCHEMA IF EXISTS Telefonos; 
+GO
 CREATE SCHEMA Telefonos; 
 GO
 -------------------------------------------
+DROP SCHEMA IF EXISTS Academia; 
+GO
 CREATE SCHEMA Academia; 
 GO
 -------------------------------------------
+DROP SCHEMA IF EXISTS TSE; 
+GO
 CREATE SCHEMA TSE; 
 GO 
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
+ALTER SCHEMA Telefonos TRANSFER OBJECT::dbo.Telefonos_General
+ALTER SCHEMA TSE TRANSFER OBJECT::dbo.Distelec 
+ALTER SCHEMA TSE TRANSFER OBJECT::dbo.PADRON_COMPLETO 
 
-
+/*
 DROP TABLE IF EXISTS Telefonos.Telefonos_General
 create table Telefonos.Telefonos_General (
 	Telefono		varchar(50), 
 	Cedula			varchar(50), 
 	Nombre_Cliente	varchar(50)
 )
-
+*/ 
+/* 
 DROP TABLE IF EXISTS TSE.Distelec
 create table TSE.Distelec (
 	Codigo			varchar(50), 
@@ -47,10 +49,10 @@ create table TSE.PADRON_COMPLETO (
 	apellido1			varchar(50), 
 	apellido2			varchar(50)
 )
-
+*/
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
-INSERT INTO Telefonos.Telefonos_General 
+/*INSERT INTO Telefonos.Telefonos_General 
 SELECT * from Telefonos_General_temp 
 
 INSERT INTO TSE.Distelec 
@@ -58,15 +60,12 @@ SELECT * FROM Distelec_temp
 
 INSERT INTO TSE.PADRON_COMPLETO 
 SELECT * FROM PADRON_COMPLETO_temp
-
+*/
 GO
 
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
-drop proc if exists TSE_COMPLETO 
-GO 
-
-create proc TSE_COMPLETO
+create or alter proc TSE_COMPLETO
 AS 
 	drop table IF EXISTS TSE.Personas
 	drop table IF EXISTS TSE.Distritos
@@ -133,9 +132,7 @@ AS
 GO
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
-drop proc if exists Creador_Telefonos 
-GO
-create proc Creador_Telefonos 
+create or alter proc Creador_Telefonos 
 as 
 
 drop table IF EXISTS Telefonos.Telefonos_General_V2;
@@ -217,11 +214,9 @@ DEALLOCATE cursor_telefonos
 GO
 ------------------------------------------------------------------------
 ------------------------------------------------------------------------
- */
-DROP PROC IF EXISTS AcademiaCompleto 
-GO
 
-CREATE PROCEDURE AcademiaCompleto
+
+CREATE OR ALTER PROC AcademiaCompleto
  AS
 	
 	
@@ -4864,10 +4859,10 @@ delete from Academia.Matriculacion
 declare @id int, @cedula_tse_temp int, @cedula_estudiante_temp int,
 		@Nombre_temp varchar(50), @ap1_temp varchar(50), @ap2_temp varchar(50) 
 
-declare cursor_mil cursor for 
+declare cursor_tabla_temp cursor for 
 select ID_Fila from Cedulas_temp 
-open cursor_mil 
-fetch next from cursor_mil into @id 
+open cursor_tabla_temp 
+fetch next from cursor_tabla_temp into @id 
 while @@FETCH_STATUS = 0
 begin 
 	set @cedula_tse_temp = (Select Cedula_tse from Cedulas_temp where ID_Fila = @id) 
@@ -4906,11 +4901,11 @@ begin
 	set ID_Estudiante = @cedula_tse_temp
 	where ID_Estudiante = @cedula_estudiante_temp			
 	
-	fetch next from cursor_mil into @id 
+	fetch next from cursor_tabla_temp into @id 
 
 end 
-close cursor_mil 
-deallocate cursor_mil  
+close cursor_tabla_temp 
+deallocate cursor_tabla_temp  
 
 
 insert into Academia.Factura 
