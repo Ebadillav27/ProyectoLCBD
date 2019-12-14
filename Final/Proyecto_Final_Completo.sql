@@ -20,52 +20,11 @@ GO
 ALTER SCHEMA Telefonos TRANSFER OBJECT::dbo.Telefonos_General
 ALTER SCHEMA TSE TRANSFER OBJECT::dbo.Distelec 
 ALTER SCHEMA TSE TRANSFER OBJECT::dbo.PADRON_COMPLETO 
-
-/*
-DROP TABLE IF EXISTS Telefonos.Telefonos_General
-create table Telefonos.Telefonos_General (
-	Telefono		varchar(50), 
-	Cedula			varchar(50), 
-	Nombre_Cliente	varchar(50)
-)
-*/ 
-/* 
-DROP TABLE IF EXISTS TSE.Distelec
-create table TSE.Distelec (
-	Codigo			varchar(50), 
-	Provincia		varchar(50), 
-	Canton			varchar(50), 
-	Distrito		varchar(50)
-) 
-
-DROP TABLE IF EXISTS TSE.PADRON_COMPLETO
-create table TSE.PADRON_COMPLETO (
-	cedula				varchar(50),
-	codigo_distrito		varchar(50), 
-	sexo				varchar(50), 
-	fecha_caduc			varchar(50), 
-	junta_votos			varchar(50), 
-	nombre				varchar(50), 
-	apellido1			varchar(50), 
-	apellido2			varchar(50)
-)
-*/
---------------------------------------------------------------------------------
---------------------------------------------------------------------------------
-/*INSERT INTO Telefonos.Telefonos_General 
-SELECT * from Telefonos_General_temp 
-
-INSERT INTO TSE.Distelec 
-SELECT * FROM Distelec_temp
-
-INSERT INTO TSE.PADRON_COMPLETO 
-SELECT * FROM PADRON_COMPLETO_temp
-*/
 GO
 
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
-create or alter proc TSE_COMPLETO
+create or alter proc TseCompleto
 AS 
 	drop table IF EXISTS TSE.Personas
 	drop table IF EXISTS TSE.Distritos
@@ -132,7 +91,7 @@ AS
 GO
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
-create or alter proc Creador_Telefonos 
+create or alter proc TelefonosCompleto 
 as 
 
 drop table IF EXISTS Telefonos.Telefonos_General_V2;
@@ -4917,3 +4876,10 @@ select * from NewMatriculacion
 drop table NewFactura
 drop table NewMatriculacion
 drop table Cedulas_temp 
+
+go 
+
+create or alter procedure ProcFinal as 
+exec TseCompleto
+exec TelefonosCompleto 
+exec AcademiaCompleto 
