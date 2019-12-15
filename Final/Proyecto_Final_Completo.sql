@@ -96,7 +96,7 @@ create or alter proc TelefonosCompleto
 as 
 PRINT 'Comenzando procedimiento para Telefonos'
 drop table IF EXISTS Telefonos.Telefonos_General_V2;
-
+delete from Telefonos.Telefonos_General where Cedula = '' or Telefono = ''
 create table Telefonos.Telefonos_General_V2
 (
 	Cedula				varchar(50)	not null,
