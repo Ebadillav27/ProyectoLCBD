@@ -25,7 +25,8 @@ GO
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
 create or alter proc TseCompleto
-AS 
+AS
+	PRINT 'Comenzando procedimiento para TSE.'
 	drop table IF EXISTS TSE.Personas
 	drop table IF EXISTS TSE.Distritos
 	drop table IF EXISTS TSE.Cantones
@@ -93,7 +94,7 @@ GO
 --------------------------------------------------------------------------------
 create or alter proc TelefonosCompleto 
 as 
-
+PRINT 'Comenzando procedimiento para Telefonos'
 drop table IF EXISTS Telefonos.Telefonos_General_V2;
 
 create table Telefonos.Telefonos_General_V2
@@ -178,19 +179,7 @@ GO
 CREATE OR ALTER PROC AcademiaCompleto
  AS
 	
-	
-DROP TABLE IF EXISTS Academia.Presentacion
-DROP TABLE IF EXISTS Academia.Matriculacion   
-DROP TABLE IF EXISTS Academia.Factura
-DROP TABLE IF EXISTS Academia.Curso
-DROP TABLE IF EXISTS Academia.Profesor
-DROP TABLE IF EXISTS Academia.Administrativo      
-DROP TABLE IF EXISTS Academia.Estudiante	
-DROP TABLE IF EXISTS Academia.Aula   	
-DROP TABLE IF EXISTS Academia.Inventario
-DROP TABLE IF EXISTS Academia.Proveedor   	 	
-DROP TABLE IF EXISTS Academia.Tipo_Beca   
-DROP TABLE IF EXISTS Academia.Arte
+PRINT 'Comenzando procedimiento para Academia'	
 	
  
 --------------------------------------------------------------------------------
