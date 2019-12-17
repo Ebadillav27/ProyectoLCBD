@@ -1,6 +1,6 @@
 use ProyectoFinal; 
 go 
-create trigger TSE.ejemplo
+create trigger TSE.Trigger_Cedula
 on    [TSE].[PADRON_COMPLETO]
 after insert as 
 begin
@@ -29,7 +29,7 @@ hora datetime
 )
 go
 ---------------------------------
-create trigger Academia.log
+create trigger Academia.Trigger_log
 on   Academia.Inventario for delete 
 as 
 set nocount on 
@@ -38,7 +38,6 @@ set @usuario = ( SELECT distinct top(1) login_name FROM sys.dm_exec_sessions )
 insert into historial values (@usuario, 'Modificado', CURRENT_TIMESTAMP)
 go
 -------------------------------------
-drop trigger Academia.log 
 
 -- delete from  Academia.Inventario where id_material = 2 -- prueba para el trigger 
 

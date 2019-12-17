@@ -30,3 +30,6 @@ DROP SCHEMA IF EXISTS Academia
 drop procedure if exists AcademiaCompleto 
 drop procedure if exists TelfonosCompleto 
 drop procedure if exists TSECompleto 
+
+drop trigger if exists TSE.Trigger_Cedula
+drop trigger if exists Academia.Trigger_log

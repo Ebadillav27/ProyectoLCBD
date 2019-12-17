@@ -1,1 +1,9 @@
-Correr los archivos que terminan con "_Completo.sql"  
+### INDICACIONES ### 
+
+- Ejectuar el script "Proyecto_Final" que se encuentra dentro de la carpeta Final/ 
+- Existen dos opciones: ejecutar 3 procedimientos por separado, o ejecutar un procedimiento que corre los otros 3 automáticamente. 
+- Para la primera opción, se debe ejecutar primero el procedimiento TSECompleto, luego el procedimiento TelefonosCompleto, y por ultimo AcademiaCompleto 
+- Para la segunda opción, se debe ejecutar el procedimiento ProcFinal
+- Si se desea restaurar la base a su estado inicial, se debe ejecutar el script "Restaurador" que se encuentra dentro de la carpeta Final/
+- Para ejecutar los triggers, debe ejecutarse el script "Triggers" que se encuentra dentro de la carpeta Final/ 
+ 
